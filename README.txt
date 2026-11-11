@@ -1,0 +1,1 @@
+NEAR Agent Work - deterministic Judge artifact. Target: wasm32-wasip2. Publish judge.wasm as a public HTTPS download and verify its checksum. Local tests passed. Remote TEE execution and settlement acceptance remain pending.
