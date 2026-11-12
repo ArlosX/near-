@@ -26,7 +26,7 @@ function borshString(value:string){
 export function walletDigest(challenge:Challenge){
  const tag=Buffer.alloc(4);
  tag.writeUInt32LE(2**31+413);
- // MyNearWallet omits callbackUrl from the signed payload when window.opener exists.
+ // Popup sign-in requests omit callbackUrl from the signed NEP-413 payload.
  // The redirect destination still comes from the server-issued challenge.
  return createHash('sha256').update(Buffer.concat([tag,borshString(challenge.message),challenge.nonce,borshString(challenge.recipient),Buffer.of(0)])).digest();
 }

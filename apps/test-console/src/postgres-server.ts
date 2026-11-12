@@ -16,7 +16,7 @@ export async function startPostgresConsole(){
  const store=new PostgresExecutionStore(pool,'near_agent_work',storage,'demo-client.testnet',contractId,verifier,verificationMode),service=new PostgresWorkflow(store),worker=new PostgresWorker(store);
  const server=createConsoleServer(store,service,new WalletAuth()),port=Number(process.env.PORT??4318);
  invariant(Number.isInteger(port)&&port>=0&&port<=65535,'invalid port');
- server.listen(port,'127.0.0.1',()=>console.log('PostgreSQL fixture console: http://127.0.0.1:'+port+' — synthetic data; no AI or NEAR settlement'));
+ server.listen(port,'127.0.0.1',()=>console.log('PostgreSQL fixture console: http://127.0.0.1:'+port+' — synthetic source data; owner-signed Testnet transactions; inference is explicit'));
  let running=false;
  const timer=setInterval(()=>{if(running)return;running=true;void worker.tick().catch(()=>console.error('PostgreSQL fixture worker failed; bounded recovery after lease expiry')).finally(()=>{running=false;});},1000);timer.unref();
  const stop=()=>{clearInterval(timer);server.close(()=>{void pool.end();});};process.once('SIGINT',stop);process.once('SIGTERM',stop);

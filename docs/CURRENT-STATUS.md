@@ -38,13 +38,15 @@ bytecode were not changed for the six-hour/operator improvements.
 
 ## Remaining owner gates
 
-- Final browser/manual acceptance and video recording.
-- Public source publication/review and confirmation of the intended license.
-- Previously exposed legacy `arlos.testnet` key: currently detected on that old
-  account. It is absent from `arlosx.testnet` and the new TEE escrow. Revoke it
-  using a retained owner-controlled Full Access key; no automatic deletion.
+- Video recording and final owner review of the submission.
+- Public source is published at https://github.com/ArlosX/near- under owner-approved MIT; final wallet-compatibility/security follow-up is being synchronized.
+- The known exposed legacy key was revoked, transaction `CsBoyyfftFGK1rzL1k4eV659R19JnHapfzojuEe6pggX`. Finalized key state confirms its absence and retention of the new owner-controlled Full Access key. Both owner wallets are now Intear. This checks the known exposed key; it is not a claim about every historical credential.
 - X post with the video and final submission fields/consent approved by owner.
 
 No production-readiness certification, independent audit, arbitrary source-truth
 verification, new live provider execution for the replay run, or competition
 percentile is claimed. Mainnet funds are outside this demonstration.
+
+## Wallet compatibility
+
+MyNearWallet no longer accepts new app connections. The dashboard now uses the official Intear V3 direct-popup protocol with a one-time NEP-413 sign-in proof. An ephemeral browser WebCrypto key authenticates the handshake only; no on-chain FunctionCall key, payment authority or provider SDK is requested. The existing server verifies the challenge, origin, signature and finalized full-access key ownership. The server-signed payload omits the optional callback URL. Owner browser acceptance passed with `arlosxq.testnet`: login, logout, remaining signed out after refresh, reconnect and remaining signed in after refresh. Its empty workspace is expected account isolation. The original `arlosx.testnet` currently has an ML-DSA key, which this Ed25519-only login does not support; its historical orders are preserved and are not reassigned.

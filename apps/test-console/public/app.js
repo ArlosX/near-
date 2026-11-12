@@ -210,30 +210,10 @@ $('check-settlement').onclick=()=>action(async()=>{
 async function walletLogin() {
  const popup=window.open('about:blank','near-agent-work-wallet','popup,width=480,height=640');
  if(!popup)throw new Error('Allow pop-ups to open your wallet.');
- const walletOrigin='https://testnet.mynearwallet.com';
  try {
   const challenge=await api('/api/auth/challenge',{});
-  const url=new URL('/sign-message',walletOrigin);
-  for(const [key,value] of Object.entries(challenge))url.searchParams.set(key,value);
-  const proof=await new Promise((resolve,reject)=>{
-   const finish=(error,value)=>{
-    clearInterval(timer);
-    window.removeEventListener('message',receive);
-    if(error)reject(error);else resolve(value);
-   };
-   const receive=event=>{
-    if(event.source!==popup||![walletOrigin,location.origin].includes(event.origin))return;
-    if(event.origin===location.origin&&event.data?.type!=='near-wallet-callback')return;
-    if(event.data?.status==='failure')finish(new Error('Wallet signing was not completed.'));
-    if(event.data?.status==='success'&&event.data.signedRequest)finish(null,event.data.signedRequest);
-   };
-   const deadline=Date.now()+300000;
-   const timer=setInterval(()=>{
-    if(popup.closed||Date.now()>deadline)finish(new Error('The wallet window closed or the signing request timed out.'));
-   },300);
-   window.addEventListener('message',receive);
-   popup.location.href=url.href;
-  });
+  const {connectIntear}=await import('/wallet-connector.js?v=intear-proof-2');
+  const proof=await connectIntear(popup,challenge);
   await api('/api/auth/login',{...proof,state:challenge.state});
   location.reload();
  } finally {popup.close();}
@@ -330,7 +310,14 @@ function renderGuidedAction(){
 }
 function renderWallet(){
  $('wallet-action').replaceChildren();if(!walletRequired)return;
- const button=el('button',walletAccount?'Sign out · '+walletAccount:'Connect Testnet wallet');button.type='button';button.onclick=()=>action(async()=>{if(!walletAccount){await walletLogin();return;}await api('/api/auth/logout',{});location.reload();});$('wallet-action').append(button);
+ if(walletAccount){const account=el('span',walletAccount,'badge');account.title='Connected Testnet account';$('wallet-action').append(account);}
+ const button=el('button',walletAccount?'Disconnect wallet':'Connect Testnet wallet');button.type='button';button.id=walletAccount?'disconnect-wallet':'connect-wallet';
+ button.onclick=()=>action(async()=>{
+  if(!walletAccount){await walletLogin();return;}
+  await api('/api/auth/logout',{});
+  chainChecks.clear();localStorage.removeItem('near-work-console-order');
+  lockWorkspace();feedback('Wallet disconnected from this workspace.');
+ });$('wallet-action').append(button);
 }
 function lockWorkspace(){ready=false;walletAccount=null;detail=null;orders=[];lastSubmission=null;selectedReport='';current=null;draftAccount='signed-out';$('artifact').value='';$('dashboard').hidden=true;$('welcome').hidden=false;$('create-dialog').close();render();renderWallet();}
 $('welcome-connect').onclick=()=>action(walletLogin);

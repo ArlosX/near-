@@ -7,11 +7,11 @@ Updated 12 November 2026. The owner requested completing these ten stages sequen
 | 1 | Publish the tested Judge WASM over HTTPS | COMPLETE — published and downloaded hash verified | Download the public file and match its SHA-256 to the tested artifact |
 | 2 | Execute extraction and comparison in OutLayer Testnet | COMPLETE — both public Testnet executions verified | Owner-signed requests produce actual outputs and receipts |
 | 3 | Verify TEE evidence and trust path | COMPLETE — both Intel quotes, worker approvals and payload bindings passed; offline replay and eight tamper rejections passed | Worker trust and exact code/input/output bindings verified |
-| 4 | Connect TEE acceptance to escrow | COMPLETE LOCALLY — direct Intel proof gate, 15 Sandbox scenarios and real-quote gas/conformance passed; not publicly deployed | Non-bypassable mode and adversarial Sandbox tests pass |
+| 4 | Connect TEE acceptance to escrow | COMPLETE — direct Intel proof gate deployed; fresh full-flow acceptance and financial receipts verified | Non-bypassable mode and adversarial Sandbox tests pass |
 | 5 | Deploy the fresh escrow contract | COMPLETE — owner deployment, code hash, initialization, client admission and live reserve verified | Owner-signed deployment, code hash, admission and reserve verified |
 | 6 | Test complete successful workflow | COMPLETE with recorded-output replay — fresh TEE proofs, allocation and actual withdrawal; not new live inference | Funded order, Gemini, TEE acceptance, allocation and actual successful withdrawal |
 | 7 | Test complete failure/refund workflow | COMPLETE for incomplete-work expiry — new TEE order fully refunded; rejection-specific live path not separately claimed | Downstream work blocked and full principal refund confirmed |
-| 8 | Final manual UI acceptance | PENDING | Wallet, form, four routes, responsive views and errors approved |
+| 8 | Final manual UI acceptance | PASSED — four-route fixture QA and owner Intear login/logout/reconnect/refresh accepted; Ed25519 account required | Wallet, form, four routes, responsive views and errors approved |
 | 9 | Final reproduction and demo package | PENDING | Clean-copy instructions pass and 2–3 minute recording accurately represents the build |
 | 10 | Submit | PENDING | Current rules checked, public links verified and owner approves final submission |
 

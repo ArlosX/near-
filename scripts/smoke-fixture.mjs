@@ -13,7 +13,7 @@ const timeout=setTimeout(()=>child.kill(),30000);
 try{
  const base=await new Promise((resolve,reject)=>{child.once('error',reject);child.once('exit',code=>reject(Error('Fixture server stopped: '+code)));child.stdout.on('data',chunk=>{logs+=chunk.toString();const match=/http:\/\/127\.0\.0\.1:\d+/.exec(logs);if(match)resolve(match[0]);});});
  const health=await(await fetch(base+'/api/health')).json();assert.equal(health.database,'sqlite');assert.equal(health.ai,false);
- for(const path of ['/','/demo','/app.js','/style.css','/fonts/space-grotesk-variable.ttf','/release-evidence.json'])assert.equal((await fetch(base+path)).status,200,path);
+ for(const path of ['/','/demo','/app.js','/style.css','/fonts/space-grotesk-variable.ttf','/release-evidence.json','/wallet-connector.js?v=intear-proof-2'])assert.equal((await fetch(base+path)).status,200,path);
  const post=async(path,data)=>{const r=await fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json','X-Local-Console':'1'},body:JSON.stringify(data)});const value=await r.json();assert.equal(r.status,200,JSON.stringify(value));return value;};
  const created=await post('/api/orders',{requestId:randomUUID(),budgetMinor:'2500',lifetimeSeconds:3600}),id=created.value.orderId;
  for(const taskId of ['extract','compare']){
@@ -26,5 +26,5 @@ try{
  }
  const detail=await(await fetch(base+'/api/orders/'+id)).json();assert.equal(detail.state.status,'CHECKS_PASSED_LOCAL');
  const evidence=await(await fetch(base+'/api/orders/'+id+'/evidence-package')).json();assert.ok(evidence);
- console.log(JSON.stringify({status:'PASS',environment:'no API keys or database service variables',assets:6,tasks:2,evidenceExport:true,financialMeaning:'fixture only; no payment'},null,2));
+ console.log(JSON.stringify({status:'PASS',environment:'no API keys or database service variables',assets:7,tasks:2,evidenceExport:true,financialMeaning:'fixture only; no payment'},null,2));
 }finally{clearTimeout(timeout);child.kill();}

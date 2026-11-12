@@ -63,7 +63,7 @@ The fixed profile has a collateral/runtime validity window. Review [TEE enforcem
 
 ## Live mode and development
 
-The optional PostgreSQL console is `npm run dev:console:postgres` on port 4318. It requires private server configuration, migrations and wallet sign-in. Live model calls are explicit; Gemini, NVIDIA and NEAR AI adapters exist. Provider names/access can change; judging the fixture demo must never require provider availability. No silent provider substitution occurs. Recorded outputs must be labeled replay, not live inference.
+The optional PostgreSQL console is `npm run dev:console:postgres` on port 4318. It requires private server configuration, migrations and Intear wallet sign-in with an Ed25519 Full Access Testnet key. ML-DSA account keys are not supported by this login verifier. Disconnect signs out of this workspace; orders remain isolated by their original owner account. Live model calls are explicit; Gemini, NVIDIA and NEAR AI adapters exist. Provider names/access can change; judging the fixture demo must never require provider availability. No silent provider substitution occurs. Recorded outputs must be labeled replay, not live inference.
 
 All Testnet transactions are separately reviewed and signed by the owner. CLI operator actions are not presented as one-click wallet UX. Do not rerun old funding commands or change funded deadlines. Local private artifacts and credentials are excluded from the source release.
 

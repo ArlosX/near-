@@ -461,6 +461,7 @@ button:disabled {
   line-height:1;
   min-width:44px
 }
+#wallet-action {display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 #wallet-action button {
   background:var(--bg-secondary);
   border:1px solid var(--glass-border);

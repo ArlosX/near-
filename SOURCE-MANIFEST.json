@@ -1,9 +1,9 @@
 {
-  "createdAt": "2026-11-12T16:44:55.127Z",
+  "createdAt": "2026-11-12T19:05:48.104Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
-      "sha256": "c1d9478ebc1645bbb26e03a6e1dee8cb745e90241a2b4849002e9b25a34fe21b"
+      "sha256": "d6e77fa1927412190dbb840326e0a3d78a4a25b45a9cbdd8297ee3f180b626a6"
     },
     {
       "path": "apps/test-console/public/demo.html",
@@ -27,19 +27,23 @@
     },
     {
       "path": "apps/test-console/public/style.css",
-      "sha256": "83ca97a98e289ae1f0bcf6a65856eb21fe8c185d452a2b49a394b8a5ab5537e8"
+      "sha256": "01f24c6632367a0e2486dabb5acd094aa4de4d8cb98de4a32dbf45ea7377d93a"
+    },
+    {
+      "path": "apps/test-console/public/wallet-connector.js",
+      "sha256": "b0de6f8cf99ac8c3236d0e9fdce689fec0d3c16f02dd6bb48d2abefd975cbe3a"
     },
     {
       "path": "apps/test-console/src/postgres-server.ts",
-      "sha256": "3fedce9bc72a8f620fa0ae4331d65e7a3ac21800f43ffe2c3016d90eead6ccc8"
+      "sha256": "1656820a9f0d8f194c8cd4372a518aec6e0b028781135c8ba8a70e4b14ed8db6"
     },
     {
       "path": "apps/test-console/src/server.ts",
-      "sha256": "6fd1c880cd715f0acab49cfb999901c8afe9070e2fb3ce364edf48b29f55143e"
+      "sha256": "1d93ccb2871b986d2fc400a425225c89e5a14e6c2fa6b0c8e05fdeb8f4c47eed"
     },
     {
       "path": "apps/test-console/src/wallet-auth.ts",
-      "sha256": "5cea01231f18f48a30ffe9af5c9a0118391adcff9830378f6d4cbed97045db46"
+      "sha256": "cfc6480e3eb408cc2af648a3735a3e8f5051c02e1c95d1cdb2462ce6ff0c46ee"
     },
     {
       "path": "contracts/tee-proof-bench/Cargo.lock",
@@ -119,7 +123,7 @@
     },
     {
       "path": "docs/CURRENT-STATUS.md",
-      "sha256": "025fc59f160630e537f9de3e1fd9ceb40de30d1708c59249ae07b1758af4991a"
+      "sha256": "9349437935f08a880fc754d1bfe6f2d4003e0ed3aa22e8ee514c92fa7a4eddc9"
     },
     {
       "path": "docs/decisions.md",
@@ -199,7 +203,11 @@
     },
     {
       "path": "docs/release-roadmap.md",
-      "sha256": "6f59303cbf6df575683df7bab1e0c4dc6d969f9f293f6924ebc40ff517673603"
+      "sha256": "97787f45d1203be4e98b00dba844431c11bb7e5fb80493c1c4ee13528b5e8005"
+    },
+    {
+      "path": "docs/release-validation-2026-11-12.md",
+      "sha256": "610b3790ea653fa8aeedf7d145013de4c3e15914e056c65647b7493eb500c7c6"
     },
     {
       "path": "docs/sandbox-handoff.md",
@@ -291,7 +299,7 @@
     },
     {
       "path": "packages/database/src/connection.ts",
-      "sha256": "aa58c5733cdafc6dd4e1a6358a532675b5f3be7bc12c8c0215ed2e88825f9b03"
+      "sha256": "25ce98d645b0857cd72efea0a55ee5f4e84d27a6b24a8bc5457a7777d2a6b753"
     },
     {
       "path": "packages/database/src/evidence-storage.ts",
@@ -538,6 +546,10 @@
       "sha256": "68e229118a0cf6b7f5c3a42c2e997da380eac8876a126ad374884eb34b24187c"
     },
     {
+      "path": "scripts/read-legacy-keys.mjs",
+      "sha256": "f6b768ca46f775474bebeb0e034ab7b2af06cb363d76a0ad6b91233b2f86a4a3"
+    },
+    {
       "path": "scripts/reconcile-release.ts",
       "sha256": "2d97dc871df3a4695b7b28c3994bffb8aa2bd5f23953fa7b57e06a692d0de76a"
     },
@@ -562,12 +574,16 @@
       "sha256": "a8a9bdc88e5a97eca62beac2a0664a143946c84dc6c3ab77a6e6a543f1e7c1db"
     },
     {
+      "path": "scripts/secure-legacy-account.ps1",
+      "sha256": "0ad060749e7db5b2fbed38c7959c8c2fe21d7995567d3538389c8a19c8a6e001"
+    },
+    {
       "path": "scripts/setup-postgres-local.sh",
       "sha256": "e40a03bbc42ae4fdeb0433764cd4a4842a91629d23b15bd57cd9ca79dbee0ab2"
     },
     {
       "path": "scripts/smoke-fixture.mjs",
-      "sha256": "ca7e42799e1ee59107bbd7511808d34a91c919d8741d544e92d16e8cd107d235"
+      "sha256": "31f05c8574e185308decce0b2925f743a35955c904999b85d73ecd679f468662"
     },
     {
       "path": "scripts/smoke-postgres.ts",
@@ -634,6 +650,10 @@
       "sha256": "c30283d3ecc11770df9d0548472429fc428fd5fdd917dee76821371ca9a0f535"
     },
     {
+      "path": "tests/database-connection.test.mjs",
+      "sha256": "963c53b27faea34f0c722b086a365e4018acd5aa72b298cdc5f553ac63da81f1"
+    },
+    {
       "path": "tests/domain.test.mjs",
       "sha256": "9bc444bc993b69a78879fc392d90d049446c26b71608e3abe6a74df188ee6faa"
     },
@@ -696,6 +716,10 @@
     {
       "path": "tests/funding-confirmation.test.mjs",
       "sha256": "d46178fb1c765674d7a54d21e6c0ac72d92dae55521a135a15a226db2a430b8f"
+    },
+    {
+      "path": "tests/intear-connector.test.mjs",
+      "sha256": "6e8c0a879fe617360988b3686a68ba31a18f623d6cca41a07a37a13d2eae431e"
     },
     {
       "path": "tests/local-judge.test.mjs",
@@ -807,7 +831,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "31d2c38e27bd2710c8d0532bc2dd8a3c1f37d1878209716a9784cc5e75dc8b71"
+      "sha256": "b8e1c30acd6bd39aaca6a8a48feb3096c73a276b2c10d96fa96054a33bc7de76"
     },
     {
       "path": "package.json",
@@ -835,7 +859,7 @@
     },
     {
       "path": ".env.example",
-      "sha256": "1e683a6fe0d3b8e00219d6a9a87e804b7f8cd993737242f8755c2c01a0df9de3"
+      "sha256": "2c43e93605b5e56ec33f834d715cb3e843c671e710e30bd2e4f25986347fdcfb"
     }
   ],
   "secretScan": "configured secrets and private-key patterns absent; manual review still required"
