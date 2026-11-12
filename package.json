@@ -1,0 +1,46 @@
+{
+  "name": "near-agent-work",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "security:check": "npm test && npm run typecheck && npm run check:syntax",
+    "test": "node --test --test-isolation=none tests/*.test.mjs",
+    "demo:checks": "node scripts/demo-checks.ts",
+    "check:syntax": "node --check packages/shared/src/domain.ts && node --check packages/agreements/src/agreement.ts && node --check packages/verification/src/verify.ts && node --check packages/orchestration/src/workflow.ts && node --check packages/verification/src/policy.ts && node --check packages/verification/src/report.ts && node --check scripts/demo-verification.mjs && node --check packages/database/src/local-store.ts && node --check packages/orchestration/src/local-workflow.ts && node --check apps/test-console/src/server.ts && node --check apps/test-console/public/app.js && node --check packages/orchestration/src/local-worker.ts && node --check packages/model/src/near-ai.ts && node --check packages/orchestration/src/model-worker.ts && node --check scripts/model-run.ts && node --check packages/database/src/postgres-store.ts && node --check scripts/check-database-env.mjs && node --check packages/database/src/postgres-execution-store.ts && node --check packages/orchestration/src/postgres-workflow.ts && node --check packages/orchestration/src/postgres-worker.ts && node --check scripts/migrate-execution.ts && node --check scripts/smoke-postgres.ts && node --check packages/database/src/evidence-storage.ts && node --check scripts/migrate-evidence.ts && node --check packages/judge/src/local-judge.ts && node --check packages/verification/src/evidence-package.ts && node --check scripts/demo-local-judge.mjs && node --check scripts/run-local-judge.mjs && node --check scripts/judge-source-manifest.mjs && node --check scripts/judge-conformance-vectors.mjs && node --check scripts/check-evidence-package.mjs",
+    "typecheck": "tsc --noEmit",
+    "demo:verification": "node scripts/demo-verification.mjs",
+    "dev:console": "node apps/test-console/src/server.ts",
+    "dev:console:postgres": "node --env-file=.env.local scripts/postgres-console.ts",
+    "test:console": "node --test --test-isolation=none tests/local-workflow.test.mjs",
+    "demo:background": "node scripts/demo-background.mjs",
+    "model:check": "node --env-file-if-exists=.env.local scripts/model-run.ts --check",
+    "model:run": "node --env-file-if-exists=.env.local scripts/model-run.ts --run",
+    "contract:test": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/contract.ps1 test",
+    "contract:build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/contract.ps1 build",
+    "contract:fmt": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/contract.ps1 fmt",
+    "db:check": "node --env-file-if-exists=.env.local scripts/check-database-env.mjs",
+    "db:migrate:execution": "node --env-file=.env.local scripts/migrate-execution.ts --apply",
+    "db:smoke": "node --env-file=.env.local scripts/smoke-postgres.ts --write-fixture",
+    "db:migrate:evidence": "node --env-file=.env.local scripts/migrate-evidence.ts --apply",
+    "model:postgres": "node --env-file=.env.local scripts/model-run-postgres.ts",
+    "judge:demo": "node scripts/demo-local-judge.mjs",
+    "judge:test": "node --test --test-isolation=none tests/local-judge.test.mjs",
+    "demo:smoke": "node scripts/smoke-fixture.mjs",
+    "release:prepare": "node scripts/prepare-release.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/pg": "^8.23.1",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@supabase/storage-js": "2.118.0",
+    "pg": "8.23.1"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "license": "MIT"
+}

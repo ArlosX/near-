@@ -1,0 +1,7 @@
+{
+  "name": "@near-agent-work/agreements",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/agreement.ts"
+}

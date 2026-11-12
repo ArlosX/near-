@@ -1,0 +1,18 @@
+[package]
+name = "agent-work-judge"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+serde = "1.0"
+serde_json = "1.0"
+sha2 = "0.10"
+regex = "1.0"
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
+panic = "abort"
+overflow-checks = true

@@ -1,0 +1,11 @@
+import {readFile,stat} from 'node:fs/promises';
+import {runLocalJudge,MAX_JUDGE_INPUT_BYTES} from '../packages/judge/src/local-judge.ts';
+import {judgeSourceManifest} from './judge-source-manifest.mjs';
+const [filename,inputHash]=process.argv.slice(2);
+if(!filename||!inputHash)throw Error('Usage: node scripts/run-local-judge.mjs INPUT.json EXPECTED_INPUT_HASH');
+if((await stat(filename)).size>MAX_JUDGE_INPUT_BYTES)throw Error('Judge input too large');
+const inputBytes=await readFile(filename);
+if(inputBytes.length>MAX_JUDGE_INPUT_BYTES)throw Error('Judge input too large');
+const {codeHash}=await judgeSourceManifest();
+const output=runLocalJudge(new TextDecoder('utf-8',{fatal:true}).decode(inputBytes),{inputHash,codeHash});
+console.log(JSON.stringify(output,null,2));
