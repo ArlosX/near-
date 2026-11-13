@@ -50,6 +50,8 @@ function softWorkspaceUpdate(){
 }
 async function refresh(){orders=await api('/api/orders');if(!orders.some(o=>o.id===current))current=orders[0]?.id??null;if(current){localStorage.setItem('near-work-console-order',current);detail=await api('/api/orders/'+current);}else detail=null;restoreEditor();render();softWorkspaceUpdate();}
 function render(){
+ const allocated=detail?.financialStatus==='SUCCESS_CREDITED';
+ const paid=allocated&&detail.events.some(e=>e.type==='settlement.withdrawal.confirmed');
  const deployed=detail?.escrowAvailable===true;
  if($('tee-status')){const checked=chainChecks.get(current);$('tee-status').hidden=!detail?.config.verificationMode;$('tee-status').textContent=detail?.config.verificationMode?'Verification mode: direct Intel TDX proof. '+(detail.events.some(e=>e.type==='model.replay.imported')?'Worker output: recorded-model replay, not new live inference. ':'')+'Local checks do not unlock dependent work. '+(checked?'Last final chain check: '+checked.chainStatus+' at '+checked.checkedAt:'Use Check settlement step to read final contract state.'):'';}
  $('settlement-panel').hidden=!deployed||detail?.config.agreement.verifierAccountId==='demo-verifier.testnet'||!['FUNDED','SUCCESS_CREDITED'].includes(detail?.financialStatus);
@@ -68,13 +70,13 @@ function render(){
  renderOverview();renderOrderLists();renderWorkspaceConnections();renderGuidedAction();
  $('download-evidence').hidden=!detail;
  if(detail)$('download-evidence').href='/api/orders/'+current+'/evidence-package';
- $('outcome-guidance').textContent=!detail?'':detail.state.status==='CHECKS_PASSED_LOCAL'?'All local checks passed. On-chain verdicts and allocation are separate; recipients claim their credits afterward.':['FAILED_LOCAL','EXPIRED_LOCAL'].includes(detail.state.status)?'The full workflow did not succeed. No partial worker payment is earned. For a funded order, check contract refund eligibility and claim separately.':'All required tasks must pass before success allocation. A final failure blocks the dependent flow.';
+ $('outcome-guidance').textContent=!detail?'':paid?'Both tasks were accepted on Testnet, fixed shares were allocated and the full withdrawal was confirmed.':allocated?'Both tasks were accepted on Testnet and fixed shares were allocated. Recipient withdrawal is separate.':detail.state.status==='CHECKS_PASSED_LOCAL'?'All local checks passed. On-chain verdicts and allocation are separate; recipients claim their credits afterward.':['FAILED_LOCAL','EXPIRED_LOCAL'].includes(detail.state.status)?'The full workflow did not succeed. No partial worker payment is earned. For a funded order, check contract refund eligibility and claim separately.':'All required tasks must pass before success allocation. A final failure blocks the dependent flow.';
 
  if(!detail){$('tasks').replaceChildren(el('div','Create an order to get started.','empty-state'));$('order-summary').textContent='No order selected';$('order-status').textContent='No order';$('financial-status').textContent='—';$('escrow-amount').textContent='—';$('config').textContent='';$('evidence-order').textContent='No order selected';for(const id of ['count-reports','count-commits','count-rollbacks'])$(id).textContent='0';$('report-select').replaceChildren(new Option('No reports yet',''));$('transactions').replaceChildren();$('events').replaceChildren();renderReport();controls();return;}
  $('financial-status').textContent=detail.events.some(e=>e.type==='settlement.withdrawal.confirmed')?'Withdrawal confirmed · Paid on Testnet':financialLabel(detail.financialStatus);$('escrow-amount').textContent=detail.financialStatus?formatNear(detail.config.agreement.totalAmountAtomic)+' NEAR':detail.config.agreement.totalAmountAtomic+' yoctoNEAR · Sample amount';$('evidence-order').textContent=detail.orderId;
  $('order-summary').textContent=detail.orderId+' · version '+detail.version;$('order-status').textContent=labels[detail.state.status];
  $('count-reports').textContent=detail.reports.length;$('count-commits').textContent=detail.transactions.filter(t=>t.outcome==='COMMITTED').length;$('count-rollbacks').textContent=detail.transactions.filter(t=>t.outcome==='ROLLED_BACK').length;
- $('tasks').replaceChildren();for(const id of detail.config.agreement.tasks.map(t=>t.id)){const task=detail.state.tasks[id];const card=el('div',undefined,'task-card');const chain=chainChecks.get(current)?.chainTasks?.find(t=>t.id===id)?.result;const taskLabel=detail.config.verificationMode?(chain?.accepted===true?'Accepted on-chain · TEE':id==='compare'&&!chainChecks.get(current)?.chainTasks?.find(t=>t.id==='extract')?.result?.accepted?'Locked · awaiting on-chain extraction':(labels[task.status]||task.status)+' · TEE acceptance separate'):(labels[task.status]||task.status);card.append(el('strong',id==='extract'?'1. Extract & cite':'2. Compare & select'),el('span',taskLabel,'badge'),el('p','Revisions used: '+task.revisions+' / '+task.maxRevisions+' · Output version: '+(task.artifactVersion??'—')));$('tasks').append(card);}
+ $('tasks').replaceChildren();for(const id of detail.config.agreement.tasks.map(t=>t.id)){const task=detail.state.tasks[id];const card=el('div',undefined,'task-card');const chain=chainChecks.get(current)?.chainTasks?.find(t=>t.id===id)?.result;const taskLabel=detail.config.verificationMode?(chain?.accepted===true||(allocated&&task.status==='CHECKS_PASSED_LOCAL')?'Accepted on-chain · TEE':id==='compare'&&!chainChecks.get(current)?.chainTasks?.find(t=>t.id==='extract')?.result?.accepted?'Locked · awaiting on-chain extraction':(labels[task.status]||task.status)+' · TEE acceptance separate'):(labels[task.status]||task.status);card.append(el('strong',id==='extract'?'1. Extract & cite':'2. Compare & select'),el('span',taskLabel,'badge'),el('p','Revisions used: '+task.revisions+' / '+task.maxRevisions+' · Output version: '+(task.artifactVersion??'—')));$('tasks').append(card);}
  renderGuidedAction();
  $('config').textContent=JSON.stringify(detail.config,null,2);
  $('report-select').replaceChildren();if(!detail.reports.length)$('report-select').append(new Option('No reports yet',''));
@@ -290,8 +292,9 @@ function renderGuidedAction(){
  if(detail?.config.verificationMode){
   const state=chainChecks.get(current)?.state;
   title=detail.events.some(e=>e.type==='settlement.withdrawal.confirmed')?'Actual withdrawal confirmed':detail.financialStatus==='REFUNDED'?'Full principal refunded':state==='refunded'?'Full principal refunded':state==='credited'?'Shares allocated · withdrawal separate':'TEE workflow · verify chain state';
-  copy='Local checks are separate from contract acceptance. Read the final chain state, then follow the owner-reviewed operator step. No transaction or model call runs automatically.';
-  label='Read TEE state';run=()=>$('check-settlement').click();
+  const allocated=detail.financialStatus==='SUCCESS_CREDITED',paid=allocated&&detail.events.some(e=>e.type==='settlement.withdrawal.confirmed');
+  copy=paid?'Workflow complete. Both dependent tasks were accepted on-chain and the full withdrawal succeeded. Review the reports and transaction receipts.':allocated?'Both tasks were accepted on-chain and fixed shares were allocated. Recipient withdrawal is separate.':'Local checks are separate from contract acceptance. Read the final chain state, then follow the owner-reviewed operator step. No transaction or model call runs automatically.';
+  label=allocated?'Review evidence':'Read TEE state';run=allocated?()=>showPage('evidence'):()=>$('check-settlement').click();
   if(['expire','refund'].includes(state)){title='Incomplete workflow · full refund';label='Check refund';run=()=>$('check-refund').click();}
  }
  $('guided-title').textContent=title;$('guided-copy').textContent=copy;$('guided-action').textContent=label+' →';$('guided-action').onclick=run;
@@ -302,9 +305,9 @@ function renderGuidedAction(){
   const taskId=detail.config.agreement.tasks[index]?.id;
   if(!taskId)return;
   const task=detail.state.tasks[taskId];
-  const locked=taskId==='compare'&&(detail.config.verificationMode?!chainChecks.get(current)?.chainTasks?.find(t=>t.id==='extract')?.result?.accepted:detail.state.tasks.extract.status!=='CHECKS_PASSED_LOCAL');
+  const locked=taskId==='compare'&&(detail.config.verificationMode?detail.financialStatus!=='SUCCESS_CREDITED'&&!chainChecks.get(current)?.chainTasks?.find(t=>t.id==='extract')?.result?.accepted:detail.state.tasks.extract.status!=='CHECKS_PASSED_LOCAL');
   card.classList.toggle('dependency-locked',locked);
-  const note=el('p',locked?'Locked · waiting for accepted extraction':taskId==='compare'?'Unlocked · uses the accepted extraction':'First step · acceptance unlocks comparison','dependency-note');
+  const note=el('p',locked?'Locked · waiting for accepted extraction':detail.financialStatus==='SUCCESS_CREDITED'?(taskId==='compare'?'Completed · used the accepted extraction':'Completed · extraction accepted on-chain'):taskId==='compare'?'Unlocked · uses the accepted extraction':'First step · acceptance unlocks comparison','dependency-note');
   card.querySelector('.dependency-note')?.remove();card.append(note);
  });
 }

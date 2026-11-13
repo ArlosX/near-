@@ -46,3 +46,7 @@ Final clean-copy install with pnpm --frozen-lockfile passed. The no-key/no-cloud
 A separate earlier v2 expiry/refund on the same account completed in 2uWdqvtXxnFNzJPC6kCbaTBkJizAfM1SKS8mKAutiY94. No separately executed v3 rejected-output refund is claimed. Other unfinished historical runs remain eligible only under their original deadlines and require cleanup separately; they are not silently marked refunded.
 
 Remaining owner deliverables: short authenticated UI acceptance, final 2–3 minute video, public X post, final personal/mainnet payout details and approval of the exact submission.
+
+## Owner UI confirmation and terminal-state correction
+
+The owner reconnected after the server restart and confirmed all four owner-scoped orders loaded, then showed the successful order with Withdrawal confirmed / Paid on Testnet. A screenshot exposed stale task-card lock labels when the page-local chain cache was empty. Rendering now uses the already reconciled SUCCESS_CREDITED state plus accepted local reports to display terminal task acceptance, removes the completed comparison lock, and sends the paid workflow to evidence instead of another operator step. Local checks alone still do not imply chain acceptance. Syntax validation passed. No authentication, financial state or smart-contract behavior changed.
