@@ -47,10 +47,10 @@ The agreement freezes recipients, allocations, task graph, deadline, source mani
 | Dependent fixture workflow, repairs, reports and failure blocking | Runnable locally without credentials |
 | Escrow transfers, callbacks, reserves and adversarial financial paths | Rust/Sandbox tests; historical designated-verifier Testnet payout/refund evidence |
 | Pinned WASI judge executes on OutLayer | Both historical tasks executed; independent Intel TDX verification passed |
-| New direct-proof escrow | Deployed at `agentwork-tee-arlosx.testnet`; legacy verifier calls cannot bypass TEE-funded orders |
-| Fresh funded extraction | Real Gemini output, OutLayer proof and direct escrow acceptance confirmed [on Testnet](https://explorer.testnet.near.org/transactions/64zFqT3fR9Ly7YDQLxoUvGoabqLNAryCKyQSSeopS7yS) |
-| Complete new TEE success through withdrawal | **Proven with recorded-model-output replay**; fresh TEE executions, both direct acceptances, allocation and actual withdrawal [receipt](https://explorer.testnet.near.org/transactions/HSUt319x8F59gDgJ1wsos4E8B5wtN5YKzmgMMxvrfCvd) |
-| New-profile expiry/refund | Full 0.001 NEAR principal refund and successful callback verified on the new TEE contract |
+| Current direct-proof escrow | `agentwork-tee-v2-arlosxq.testnet`, code-only upgraded to profile v3 for new orders; existing v2 orders retain their original trust profile |
+| Fresh funded extraction | Real Gemini output, OutLayer proof and direct v3 escrow acceptance confirmed [on Testnet](https://explorer.testnet.near.org/transactions/7E5zcVnARw1URRebRTfC5Y7jTzgmxYhYZr67i26xSgi5) |
+| Complete live success through withdrawal | **Two fresh Gemini calls**, fresh TEE executions, both direct contract acceptances, allocation and actual [0.001 NEAR withdrawal](https://explorer.testnet.near.org/transactions/9ggfPm7tztGa5gBMD4Qqfd6UWTQTDF6nT2JrRoMREmFc); no recorded-output replay in this run |
+| Separate expiry/refund | Full 0.001 NEAR refund and successful callback on the same account under its earlier v2 profile; no separate live v3 rejection/refund is claimed |
 | Production/public hosting and independent security audit | **Not claimed** |
 
 The implemented verifier supports structured synthetic supplier sources: schema, source facts/quotes, arithmetic, eligibility, selection and exact predecessor bindings. It does not prove arbitrary document truth or unrestricted semantic correctness. The current on-chain demo uses one account for buyer/verifier/worker recipients. Escrow deployment-key authority remains a trust boundary.
@@ -59,7 +59,9 @@ The implemented verifier supports structured synthetic supplier sources: schema,
 
 The Rust WASI judge runs the deterministic verification profile inside OutLayer. Before dispatch, the escrow commits the exact request. On return, `submit_tee_result` verifies Intel/DCAP proof, pinned measurements, judge/input/output hashes, task context and revision/time bounds. An off-chain verdict boolean cannot authorize acceptance. TEE attests execution of those rules; it does not make source data truthful.
 
-The fixed profile has a collateral/runtime validity window. Review [TEE enforcement](docs/tee-escrow-stage4.md), [deployment](docs/testnet-deployment-stage5.md) and [current release gates](docs/release-roadmap.md) before attempting a live order. Earlier dated planning documents are historical.
+Profile v3 freezes a two-entry allowlist of independently reviewed worker measurement digests. Other workers are rejected; current registry approval alone cannot expand it. Gemini generation is recorded by the operator, while TEE attests deterministic verification. The fixed profile has a collateral/runtime validity window. Review [TEE enforcement](docs/tee-escrow-stage4.md), [deployment](docs/testnet-deployment-stage5.md) and [current release gates](docs/release-roadmap.md) before attempting a live order. Earlier dated planning documents are historical.
+
+See the [13 November validation and live receipts](docs/release-validation-2026-11-13.md). Build the current escrow with `cargo build --locked --manifest-path contracts/work-escrow/Cargo.toml --target wasm32-unknown-unknown --release --features tee-worker-v3` using the repository target flags. Default builds preserve historical v1. Never deploy with initialization on an existing escrow.
 
 ## Live mode and development
 

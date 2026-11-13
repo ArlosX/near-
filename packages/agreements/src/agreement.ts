@@ -85,8 +85,8 @@ export function validateAgreement(input: unknown, nowNs: bigint): Agreement {
   // Copy and recursively freeze the approved snapshot. Database immutability still needs service enforcement.
   return deepFreeze(JSON.parse(canonicalJson(a)) as Agreement);
 }
-export function fundingIntent(agreement: Agreement, verificationMode?: 'outlayer-tdx-direct-v1') {
-  invariant(verificationMode === undefined || verificationMode === 'outlayer-tdx-direct-v1', 'Unsupported funding verification mode');
+export function fundingIntent(agreement: Agreement, verificationMode?: 'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3') {
+  invariant(verificationMode === undefined || (verificationMode === 'outlayer-tdx-direct-v1' || verificationMode === 'outlayer-tdx-direct-v2' || verificationMode === 'outlayer-tdx-direct-v3'), 'Unsupported funding verification mode');
   if (verificationMode) return {
     network: agreement.network, signerId: agreement.clientAccountId, receiverId: agreement.contractId,
     methodName: 'create_tee_work_order', depositAtomic: agreement.totalAmountAtomic,

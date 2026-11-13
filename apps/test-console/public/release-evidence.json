@@ -1,76 +1,160 @@
 {
   "schemaVersion": "1",
   "network": "testnet",
-  "contractId": "agentwork-tee-arlosx.testnet",
-  "workerExecution": "recorded-model-output-replay",
-  "verification": "fresh OutLayer Intel TDX execution; direct escrow proof verification",
+  "contractId": "agentwork-tee-v2-arlosxq.testnet",
+  "verificationMode": "outlayer-tdx-direct-v3",
+  "workerExecution": "fresh-gemini-model-calls",
+  "verification": "fresh OutLayer Intel TDX execution; direct escrow proof verification; frozen two-worker allowlist",
+  "generationTrust": "Gemini generation is server-recorded, not TEE-attested",
   "success": {
-    "orderId": "demo-9232242654698a762c17493d9dc79c4c9662ef425d531dc6",
+    "orderId": "demo-521ed9a3855a27a4f33b8a6a8ceba02a223ee69bc8b2d3ec",
+    "agreementHash": "sha256:ffd010bde440462c50f75a04c7ebb88330ef886cb461d2d52f14a9d94d32e551",
     "amountAtomic": "1000000000000000000000",
     "status": "FINAL_PAID",
     "transactions": [
       {
         "label": "Funding",
         "method": "create_tee_work_order",
-        "hash": "4XjDVLdX3zfdYUQx6kcCKGaZbFpZ7PSHUAiUT6uQeABU"
+        "hash": "H1TaUkfdTG7UabPiNYft7nyGhLVeSWq8MCs9sosbmiS4"
       },
       {
         "label": "Prepare extraction",
         "method": "prepare_tee_request",
-        "hash": "HpcnQ9cVHMdFmYTmDLzLdet6Nwk7h5rtohYw1EJJsiaN"
+        "hash": "Bf9yW8z5EGFHKdrFPoaPipZx8YXTmz9akpJtGCWYxCaC"
       },
       {
         "label": "Execute extraction in TEE",
         "method": "request_execution",
-        "hash": "FuJNuYQuFJoDxjTtRmnprYK4VkxTEjj2qT6CgeFVo8sb"
+        "hash": "F2od1YbwXJxsRqmu7XZXwpBpN9jsYaHycVrAWhoBe1GY"
       },
       {
         "label": "Accept extraction proof",
         "method": "submit_tee_result",
-        "hash": "FYQxXCrkv6a2jAkoHamd4FpQT8vK4LZzvWFaADuqYjxF"
+        "hash": "7E5zcVnARw1URRebRTfC5Y7jTzgmxYhYZr67i26xSgi5"
       },
       {
         "label": "Prepare comparison",
         "method": "prepare_tee_request",
-        "hash": "13GEUqhGkjeNAAVjyqSvN4CL3u9Ku4ivgagW3hrduwyU"
+        "hash": "7f97jMq5HsjikZf9UNan9c8DrqMcTGXe8J2M1CJ4G68K"
       },
       {
         "label": "Execute comparison in TEE",
         "method": "request_execution",
-        "hash": "iUxCRZ57mnAkZpYtzHTzHgMCkWKsSiyneNLYvr5Yzca"
+        "hash": "7ZCrYrhbw4o7D2mZZCK5hJFQ6dub3vKzPeADgYDXGQQ5"
       },
       {
         "label": "Accept comparison proof",
         "method": "submit_tee_result",
-        "hash": "5e3RtSpkG7FpueYxRADyzTvvVgmnFZgPoJUyTDmmTFtw"
+        "hash": "CeLLRvsn1d7ykHKqajkqYGJxb9tVxeHhFZugMM976AQR"
       },
       {
         "label": "Allocate shares",
         "method": "finalize_success",
-        "hash": "J2gJzDaRB5Vxb8bzRRicDthEWc7ueq6ufjagLM6xHyXP"
+        "hash": "C8KfnjTSa3utX1i3HAqJgTgJf5AWT1mQtmNpNGpiLY7L"
       },
       {
         "label": "Successful withdrawal",
         "method": "withdraw_claimable",
-        "hash": "HSUt319x8F59gDgJ1wsos4E8B5wtN5YKzmgMMxvrfCvd"
+        "hash": "9ggfPm7tztGa5gBMD4Qqfd6UWTQTDF6nT2JrRoMREmFc"
       }
     ]
   },
   "refund": {
-    "orderId": "demo-a26e7fad70d6a067cac9440ec43669646886493f84fb1f1c",
+    "contractId": "agentwork-tee-v2-arlosxq.testnet",
+    "verificationMode": "outlayer-tdx-direct-v2",
+    "orderId": "demo-1ce52318c8f490f9e774cf1f7861e79dca901eb2bf23a27a",
     "amountAtomic": "1000000000000000000000",
     "status": "REFUNDED",
+    "scope": "Separate v2 incomplete-work expiry, before the v3 code upgrade; not a fresh v3 rejected-output refund",
     "transactions": [
       {
         "label": "Record expiry",
         "method": "mark_expired",
-        "hash": "MvqpPHLC22u4qjjZrKgNFFo7VGkFdyMV2rECRx19eL4"
+        "hash": "FeSA8njtVfoDuT7ty7a9CRZfrHSboLgNyz6V8ygLwzDT"
       },
       {
         "label": "Full principal refund",
         "method": "claim_refund",
-        "hash": "59CgKUj3T8k32zPyfPYhGW9Jm8Z4sfoTFBUc2BxgBCz4"
+        "hash": "2uWdqvtXxnFNzJPC6kCbaTBkJizAfM1SKS8mKAutiY94"
       }
     ]
-  }
+  },
+  "historical": [
+    {
+      "schemaVersion": "1",
+      "network": "testnet",
+      "contractId": "agentwork-tee-arlosx.testnet",
+      "workerExecution": "recorded-model-output-replay",
+      "verification": "fresh OutLayer Intel TDX execution; direct escrow proof verification",
+      "success": {
+        "orderId": "demo-9232242654698a762c17493d9dc79c4c9662ef425d531dc6",
+        "amountAtomic": "1000000000000000000000",
+        "status": "FINAL_PAID",
+        "transactions": [
+          {
+            "label": "Funding",
+            "method": "create_tee_work_order",
+            "hash": "4XjDVLdX3zfdYUQx6kcCKGaZbFpZ7PSHUAiUT6uQeABU"
+          },
+          {
+            "label": "Prepare extraction",
+            "method": "prepare_tee_request",
+            "hash": "HpcnQ9cVHMdFmYTmDLzLdet6Nwk7h5rtohYw1EJJsiaN"
+          },
+          {
+            "label": "Execute extraction in TEE",
+            "method": "request_execution",
+            "hash": "FuJNuYQuFJoDxjTtRmnprYK4VkxTEjj2qT6CgeFVo8sb"
+          },
+          {
+            "label": "Accept extraction proof",
+            "method": "submit_tee_result",
+            "hash": "FYQxXCrkv6a2jAkoHamd4FpQT8vK4LZzvWFaADuqYjxF"
+          },
+          {
+            "label": "Prepare comparison",
+            "method": "prepare_tee_request",
+            "hash": "13GEUqhGkjeNAAVjyqSvN4CL3u9Ku4ivgagW3hrduwyU"
+          },
+          {
+            "label": "Execute comparison in TEE",
+            "method": "request_execution",
+            "hash": "iUxCRZ57mnAkZpYtzHTzHgMCkWKsSiyneNLYvr5Yzca"
+          },
+          {
+            "label": "Accept comparison proof",
+            "method": "submit_tee_result",
+            "hash": "5e3RtSpkG7FpueYxRADyzTvvVgmnFZgPoJUyTDmmTFtw"
+          },
+          {
+            "label": "Allocate shares",
+            "method": "finalize_success",
+            "hash": "J2gJzDaRB5Vxb8bzRRicDthEWc7ueq6ufjagLM6xHyXP"
+          },
+          {
+            "label": "Successful withdrawal",
+            "method": "withdraw_claimable",
+            "hash": "HSUt319x8F59gDgJ1wsos4E8B5wtN5YKzmgMMxvrfCvd"
+          }
+        ]
+      },
+      "refund": {
+        "orderId": "demo-a26e7fad70d6a067cac9440ec43669646886493f84fb1f1c",
+        "amountAtomic": "1000000000000000000000",
+        "status": "REFUNDED",
+        "transactions": [
+          {
+            "label": "Record expiry",
+            "method": "mark_expired",
+            "hash": "MvqpPHLC22u4qjjZrKgNFFo7VGkFdyMV2rECRx19eL4"
+          },
+          {
+            "label": "Full principal refund",
+            "method": "claim_refund",
+            "hash": "59CgKUj3T8k32zPyfPYhGW9Jm8Z4sfoTFBUc2BxgBCz4"
+          }
+        ]
+      }
+    }
+  ]
 }

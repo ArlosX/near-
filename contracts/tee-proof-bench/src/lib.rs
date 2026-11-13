@@ -35,6 +35,7 @@ impl Bench {
         pending: tee::Pending,
         output_data: String,
         agreement_hash: String,
+        profile: Option<String>,
     ) -> String {
         let order = state::Order {
             client: "fixture.testnet".into(),
@@ -48,7 +49,8 @@ impl Bench {
             refunded: false,
         };
         let result = tee::validate_proof(&proof, &pending, &order, &output_data);
-        tee::verify_crypto(&proof, &collateral, tee::MEASUREMENTS);
+        let expected = profile.as_deref().map(tee::measurements_for).unwrap_or(tee::MEASUREMENTS);
+        tee::verify_crypto(&proof, &collateral, expected);
         env::log_str(&format!("CLAIM_GAS:{}", env::used_gas().as_gas()));
         tee::field(&result, "decision").to_string()
     }

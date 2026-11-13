@@ -1,0 +1,348 @@
+[
+  {
+    "report": {
+      "scope": "deterministic_only",
+      "checks": [
+        {
+          "actual": "valid",
+          "passed": true,
+          "reason": "Runtime schema and identity validated.",
+          "checker": "artifact_schema",
+          "expected": "canonical supplier artifact v1",
+          "criterionId": "$schema",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "id": "sup-1",
+            "quote": "SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.",
+            "currency": "USD",
+            "quantity": 2,
+            "sourceId": "source-a",
+            "totalMinor": "2100",
+            "deliveryDays": 3,
+            "shippingMinor": "100",
+            "unitPriceMinor": "1000"
+          },
+          "passed": true,
+          "reason": "Profile v2 requires exact price, shipping and delivery from the entire structured fixture source, and approved currency/quantity. Unsupported or instruction-appended prose fails closed.",
+          "checker": "source_facts",
+          "expected": "exact structured source facts and approved units",
+          "criterionId": "$source-facts:sup-1",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "id": "sup-2",
+            "quote": "SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.",
+            "currency": "USD",
+            "quantity": 2,
+            "sourceId": "source-b",
+            "totalMinor": "2600",
+            "deliveryDays": null,
+            "shippingMinor": "0",
+            "unitPriceMinor": "1300"
+          },
+          "passed": true,
+          "reason": "Profile v2 requires exact price, shipping and delivery from the entire structured fixture source, and approved currency/quantity. Unsupported or instruction-appended prose fails closed.",
+          "checker": "source_facts",
+          "expected": "exact structured source facts and approved units",
+          "criterionId": "$source-facts:sup-2",
+          "checkerVersion": 1
+        },
+        {
+          "actual": [
+            "source-a",
+            "source-b"
+          ],
+          "passed": true,
+          "reason": "Demo profile requires exactly one supplier per source document; no silent omissions.",
+          "checker": "source_coverage",
+          "expected": [
+            "source-a",
+            "source-b"
+          ],
+          "criterionId": "$sources",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {},
+          "passed": true,
+          "reason": "Must consume every exact accepted predecessor artifact, with no extras.",
+          "checker": "dependency_hash",
+          "expected": {},
+          "criterionId": "$dependencies",
+          "checkerVersion": 1
+        },
+        {
+          "actual": null,
+          "passed": true,
+          "reason": "Extraction does not choose a supplier.",
+          "checker": "extraction_shape",
+          "expected": null,
+          "criterionId": "$extraction",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "quote": "SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.",
+            "matched": true,
+            "sourceId": "source-a"
+          },
+          "passed": true,
+          "reason": "Checks quotation presence only; not truth or numerical extraction accuracy.",
+          "checker": "source_quote",
+          "expected": "quotation present in frozen source",
+          "criterionId": "source_quote:sup-1",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "quote": "SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.",
+            "matched": true,
+            "sourceId": "source-b"
+          },
+          "passed": true,
+          "reason": "Checks quotation presence only; not truth or numerical extraction accuracy.",
+          "checker": "source_quote",
+          "expected": "quotation present in frozen source",
+          "criterionId": "source_quote:sup-2",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "2100",
+          "passed": true,
+          "reason": "Expected 2100 minor units from supplied values.",
+          "checker": "total_cost",
+          "expected": "2100",
+          "criterionId": "total_cost:sup-1",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "2600",
+          "passed": true,
+          "reason": "Expected 2600 minor units from supplied values.",
+          "checker": "total_cost",
+          "expected": "2600",
+          "criterionId": "total_cost:sup-2",
+          "checkerVersion": 1
+        }
+      ],
+      "taskId": "extract",
+      "orderId": "demo-521ed9a3855a27a4f33b8a6a8ceba02a223ee69bc8b2d3ec",
+      "decision": "accepted",
+      "revision": 0,
+      "policyHash": "sha256:4e426c71f007592e3853de78e7c28d2ece961f0f8dbb431780cb8167a1afff00",
+      "limitations": [
+        "Deterministic result only: does not authorize a final on-chain verdict or settlement.",
+        "Source facts are checked only against the strict structured fixture grammar; source authenticity and arbitrary prose semantics are not verified.",
+        "Evaluator account is declared metadata, not a cryptographic signature.",
+        "Accepted dependency context must be loaded by the trusted service after chain reconciliation."
+      ],
+      "artifactHash": "sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1",
+      "agreementHash": "sha256:ffd010bde440462c50f75a04c7ebb88330ef886cb461d2d52f14a9d94d32e551",
+      "evaluatedAtNs": "1794576508007000000",
+      "schemaVersion": "1",
+      "artifactVersion": 1,
+      "evaluatorAccountId": "arlosxq.testnet",
+      "sourceManifestHash": "sha256:2a318d0564af81ccdd6a5cd831f712bc8402cf0887bef954fa3426136c1eac66"
+    },
+    "reportHash": "sha256:e73c4e38841834614e10c813182158cbb26da69c94d0cc3dff1601d1850e6df1"
+  },
+  {
+    "report": {
+      "scope": "deterministic_only",
+      "checks": [
+        {
+          "actual": "valid",
+          "passed": true,
+          "reason": "Runtime schema and identity validated.",
+          "checker": "artifact_schema",
+          "expected": "canonical supplier artifact v1",
+          "criterionId": "$schema",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "id": "sup-1",
+            "quote": "SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.",
+            "currency": "USD",
+            "quantity": 2,
+            "sourceId": "source-a",
+            "totalMinor": "2100",
+            "deliveryDays": 3,
+            "shippingMinor": "100",
+            "unitPriceMinor": "1000"
+          },
+          "passed": true,
+          "reason": "Profile v2 requires exact price, shipping and delivery from the entire structured fixture source, and approved currency/quantity. Unsupported or instruction-appended prose fails closed.",
+          "checker": "source_facts",
+          "expected": "exact structured source facts and approved units",
+          "criterionId": "$source-facts:sup-1",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "id": "sup-2",
+            "quote": "SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.",
+            "currency": "USD",
+            "quantity": 2,
+            "sourceId": "source-b",
+            "totalMinor": "2600",
+            "deliveryDays": null,
+            "shippingMinor": "0",
+            "unitPriceMinor": "1300"
+          },
+          "passed": true,
+          "reason": "Profile v2 requires exact price, shipping and delivery from the entire structured fixture source, and approved currency/quantity. Unsupported or instruction-appended prose fails closed.",
+          "checker": "source_facts",
+          "expected": "exact structured source facts and approved units",
+          "criterionId": "$source-facts:sup-2",
+          "checkerVersion": 1
+        },
+        {
+          "actual": [
+            "source-a",
+            "source-b"
+          ],
+          "passed": true,
+          "reason": "Demo profile requires exactly one supplier per source document; no silent omissions.",
+          "checker": "source_coverage",
+          "expected": [
+            "source-a",
+            "source-b"
+          ],
+          "criterionId": "$sources",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "extract": "sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1"
+          },
+          "passed": true,
+          "reason": "Must consume every exact accepted predecessor artifact, with no extras.",
+          "checker": "dependency_hash",
+          "expected": {
+            "extract": "sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1"
+          },
+          "criterionId": "$dependencies",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "sha256:62bf7892e60efcbec1db49c264c78f3f364db4c3d8a573d294857e03de1c3257",
+          "passed": true,
+          "reason": "Comparison cannot edit, omit or add accepted extracted supplier facts.",
+          "checker": "dependency_facts",
+          "expected": "sha256:62bf7892e60efcbec1db49c264c78f3f364db4c3d8a573d294857e03de1c3257",
+          "criterionId": "$facts",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "quote": "SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.",
+            "matched": true,
+            "sourceId": "source-a"
+          },
+          "passed": true,
+          "reason": "Checks quotation presence only; not truth or numerical extraction accuracy.",
+          "checker": "source_quote",
+          "expected": "quotation present in frozen source",
+          "criterionId": "source_quote:sup-1",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "quote": "SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.",
+            "matched": true,
+            "sourceId": "source-b"
+          },
+          "passed": true,
+          "reason": "Checks quotation presence only; not truth or numerical extraction accuracy.",
+          "checker": "source_quote",
+          "expected": "quotation present in frozen source",
+          "criterionId": "source_quote:sup-2",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "2100",
+          "passed": true,
+          "reason": "Expected 2100 minor units from supplied values.",
+          "checker": "total_cost",
+          "expected": "2100",
+          "criterionId": "total_cost:sup-1",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "2600",
+          "passed": true,
+          "reason": "Expected 2600 minor units from supplied values.",
+          "checker": "total_cost",
+          "expected": "2600",
+          "criterionId": "total_cost:sup-2",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "sup-1",
+          "passed": true,
+          "reason": "Choose a demonstrably eligible option, or null only when none is established.",
+          "checker": "selection",
+          "expected": [
+            "sup-1"
+          ],
+          "criterionId": "selection",
+          "checkerVersion": 1
+        },
+        {
+          "actual": {
+            "extract": "sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1"
+          },
+          "passed": true,
+          "reason": "Matches authoritative accepted-artifact context; hash alone is not an acceptance attestation.",
+          "checker": "dependency_hash",
+          "expected": {
+            "extract": "sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1"
+          },
+          "criterionId": "dependency_hash",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "sup-1",
+          "passed": true,
+          "reason": "Requires matching currency/quantity and reproducible total within budget.",
+          "checker": "budget",
+          "expected": "selected supplier complies, or valid no-eligible result",
+          "criterionId": "budget",
+          "checkerVersion": 1
+        },
+        {
+          "actual": "sup-1",
+          "passed": true,
+          "reason": "Unknown delivery never establishes eligibility.",
+          "checker": "delivery",
+          "expected": "selected supplier complies, or valid no-eligible result",
+          "criterionId": "delivery",
+          "checkerVersion": 1
+        }
+      ],
+      "taskId": "compare",
+      "orderId": "demo-521ed9a3855a27a4f33b8a6a8ceba02a223ee69bc8b2d3ec",
+      "decision": "accepted",
+      "revision": 0,
+      "policyHash": "sha256:7096a46d0e081acf361a648f8647175bed36341f684fb876a32134c84cb145cc",
+      "limitations": [
+        "Deterministic result only: does not authorize a final on-chain verdict or settlement.",
+        "Source facts are checked only against the strict structured fixture grammar; source authenticity and arbitrary prose semantics are not verified.",
+        "Evaluator account is declared metadata, not a cryptographic signature.",
+        "Accepted dependency context must be loaded by the trusted service after chain reconciliation."
+      ],
+      "artifactHash": "sha256:eb2f85282a416e8ea58abaf6b9e96a6eed74167667cae8ee077d8a2c45ca40b9",
+      "agreementHash": "sha256:ffd010bde440462c50f75a04c7ebb88330ef886cb461d2d52f14a9d94d32e551",
+      "evaluatedAtNs": "1794577200582000000",
+      "schemaVersion": "1",
+      "artifactVersion": 1,
+      "evaluatorAccountId": "arlosxq.testnet",
+      "sourceManifestHash": "sha256:2a318d0564af81ccdd6a5cd831f712bc8402cf0887bef954fa3426136c1eac66"
+    },
+    "reportHash": "sha256:c980ca770fdb9b872db85360631d0e3c02b0ec924fe6f572cfab201edecd4950"
+  }
+]

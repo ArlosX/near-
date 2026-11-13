@@ -2,7 +2,7 @@ import { hash, validateAgreement } from '../../agreements/src/agreement.ts';
 import type { Agreement, Criterion, Task } from '../../shared/src/domain.ts';
 import type { Policy, Artifact } from '../../verification/src/policy.ts';
 import type { Source, Supplier } from '../../verification/src/verify.ts';
-export type DemoConfig = { verificationMode?: 'outlayer-tdx-direct-v1'; agreement: Agreement; policies: Record<string,Policy>; sources: Source[]; suppliers: Supplier[] };
+export type DemoConfig = { verificationMode?: 'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3'; agreement: Agreement; policies: Record<string,Policy>; sources: Source[]; suppliers: Supplier[] };
 export function createDemoConfig(orderId: string, nowNs: bigint, budgetMinor: string, lifetimeSeconds = 3600, clientAccountId = 'demo-client.testnet', contractId = 'undeployed-escrow.testnet', settlementAccount?:string): DemoConfig {
  const sources = [{id:'source-a',text:'SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.'},{id:'source-b',text:'SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.'}];
  const constraints = {currency:'USD',quantity:2,budgetMinor,maxDeliveryDays:7};

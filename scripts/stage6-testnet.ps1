@@ -6,6 +6,10 @@ Push-Location -LiteralPath $projectRoot
 try {
  $runName=& node --env-file=.env.local --input-type=module -e "import {operatorRun} from './packages/shared/src/operator-run.ts';process.stdout.write(operatorRun().name)"
  if($LASTEXITCODE -ne 0 -or $runName -notmatch '^stage6-success(?:-[a-z0-9-]{1,30})?$'){throw 'Invalid run directory'}
+ $actor=& node --env-file=.env.local --input-type=module -e "import {operatorRun} from './packages/shared/src/operator-run.ts';process.stdout.write(operatorRun().actor)"
+ if($LASTEXITCODE -ne 0 -or $actor -notin @('arlosx.testnet','arlosxq.testnet')){throw 'Invalid reviewed operator account'}
+ $contract=& node --env-file=.env.local --input-type=module -e "import {operatorRun} from './packages/shared/src/operator-run.ts';process.stdout.write(operatorRun().contract)"
+ if($LASTEXITCODE -ne 0 -or $contract -notin @('agentwork-tee-arlosx.testnet','agentwork-tee-v2-arlosxq.testnet')){throw 'Invalid reviewed escrow'}
  $runFolder=Join-Path 'artifacts/local' $runName
  $nodeAction=switch($Action){'Funding'{'--funding'} 'Execute'{'--execute'} default{'--plan'}}
  if($Action -eq 'Proof'){& node --env-file=.env.local scripts/stage6-proof.mjs}
@@ -16,8 +20,8 @@ try {
  $intent=Get-Content -Raw -LiteralPath (Join-Path $runFolder 'next-intent.json')|ConvertFrom-Json
  $allowed=switch($Action){'Funding'{@('create_tee_work_order')} 'Execute'{@('request_execution')} 'Proof'{@('submit_tee_result')} 'Withdraw'{@('withdraw_claimable')} default{@('prepare_tee_request','finalize_success')}}
  if($allowed -notcontains $intent.methodName){throw 'No signable action for this step'}
- $receiver=if($Action -eq 'Execute'){'outlayer.testnet'}else{'agentwork-tee-arlosx.testnet'}
- if($intent.receiverId -ne $receiver -or $intent.signerId -ne 'arlosx.testnet'){throw 'Unexpected stage-6 signer or receiver'}
+ $receiver=if($Action -eq 'Execute'){'outlayer.testnet'}else{$contract}
+ if($intent.receiverId -ne $receiver -or $intent.signerId -ne $actor){throw 'Unexpected stage-6 signer or receiver'}
  if($Action -eq 'Funding' -and $intent.depositAtomic -ne '1000000000000000000000'){throw 'Stage-6 principal must be exactly 0.001 Testnet NEAR'}
  if($Action -eq 'Plan' -and $intent.depositAtomic -ne '0'){throw 'No deposit is permitted for preparation or allocation'}
  if($Action -eq 'Proof' -and $intent.depositAtomic -ne '0'){throw 'Proof submission must have zero deposit'}

@@ -9,7 +9,6 @@ import {PostgresExecutionStore} from '../packages/database/src/postgres-executio
 import {PostgresWorkflow} from '../packages/orchestration/src/postgres-workflow.ts';
 import {runPostgresModel} from '../packages/orchestration/src/postgres-model-run.ts';
 import {NearAiAdapter} from '../packages/model/src/near-ai.ts';
-import {TEE_PROFILE} from '../packages/agreements/src/tee-settlement.ts';
 import {TEE_LIMITS,teeExecutionIntent} from '../packages/agreements/src/tee-execution.ts';
 import {canonicalJson,hash} from '../packages/agreements/src/agreement.ts';
 import {invariant,record,identifier} from '../packages/shared/src/domain.ts';
@@ -20,8 +19,8 @@ import type {DemoConfig} from '../packages/orchestration/src/demo-data.ts';
 
 // Explicit owner-reviewed stage-6 route. It never reads keys from a wallet,
 // signs, sends a transaction, or changes historical orders/global model settings.
-const CONTRACT='agentwork-tee-arlosx.testnet',ACTOR='arlosx.testnet';
-const CODE_HASH='4eaQHrw1xjUjtHjJg329UvV65t7UoWzTkKUKN4vS9JvM';
+const run=operatorRun(),CONTRACT=run.contract,ACTOR=run.actor,PROFILE=run.profile;
+const CODE_HASH=run.codeHash;
 const folder=operatorRun().folder,checkpoint=resolve(folder,'checkpoint.json');
 async function rpc(method:string,params:unknown){
  const response=await fetch('https://rpc.testnet.fastnear.com',{method:'POST',headers:{'Content-Type':'application/json'},redirect:'error',signal:AbortSignal.timeout(15000),body:JSON.stringify({jsonrpc:'2.0',id:'stage6',method,params})});
@@ -57,7 +56,7 @@ async function main(){
    }
    return verifiedBytes.get(cacheKey)!;
   }};
-  const store=new PostgresExecutionStore(pool,'near_agent_work',storage,ACTOR,CONTRACT,ACTOR,TEE_PROFILE);
+  const store=new PostgresExecutionStore(pool,'near_agent_work',storage,ACTOR,CONTRACT,ACTOR,PROFILE);
   await mkdir(folder,{recursive:true});
   let saved:{orderId:string;agreementHash:string};
   if(action==='--create'){
@@ -78,7 +77,7 @@ async function main(){
   }
   saved=parseJsonStrict(await readFile(checkpoint,'utf8')) as typeof saved;identifier(saved.orderId,'stage6 order');
   const detail=await store.details(saved.orderId);
-  invariant(detail.config.verificationMode===TEE_PROFILE&&detail.config.agreement.contractId===CONTRACT&&hash(detail.config.agreement)===saved.agreementHash,'Stage 6 checkpoint binding mismatch');
+  invariant(detail.config.verificationMode===PROFILE&&detail.config.agreement.contractId===CONTRACT&&hash(detail.config.agreement)===saved.agreementHash,'Stage 6 checkpoint binding mismatch');
   if(action==='--funding'){await writeIntent(await store.getFundingIntent(saved.orderId));return;}
   if(action==='--confirm-funding'){console.log(JSON.stringify(await store.confirmFunding(saved.orderId,txHash!),null,2));return;}
   if(action==='--replay'){
@@ -113,6 +112,7 @@ async function main(){
    const plan=await store.teeSettlementPlan(saved.orderId);
    await writeFile(resolve(folder,'last-plan.json'),canonicalJson(plan)+'\n');
    if(action==='--execute'){
+    invariant(plan.state!=='expire','Order deadline has passed. Do not pay OutLayer; mark this order expired and claim its refund.');
     invariant(plan.state==='execute'&&typeof plan.inputData==='string','An on-chain pending TEE request is required');
     const view=record(await rpc('query',{request_type:'call_function',account_id:'outlayer.testnet',method_name:'estimate_execution_cost',args_base64:Buffer.from(canonicalJson({resource_limits:TEE_LIMITS,input_len:Buffer.byteLength(plan.inputData)})).toString('base64'),finality:'final'}),'OutLayer cost view');
     invariant(Array.isArray(view.result)&&view.result.length<4096,'Invalid OutLayer estimate response');

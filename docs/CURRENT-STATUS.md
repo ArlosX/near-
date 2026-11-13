@@ -1,52 +1,37 @@
-# Current release status — 12 November 2026
+# Current release status — 13 November 2026
 
-This is the current checkpoint. Earlier dated documents preserve the state at the
-time they were written; statements such as “pending” in them may be superseded.
+## Complete live success
 
-## Confirmed new-profile financial paths
+Current contract account: agentwork-tee-v2-arlosxq.testnet. Current code hash: 8WawYEgDE9erqwNJ2yhjJEnTobVbTm95vUbG7mkntsDx. The account name retains v2; new orders use frozen profile outlayer-tdx-direct-v3.
 
-Contract: `agentwork-tee-arlosx.testnet`, frozen `outlayer-tdx-direct-v1` mode.
+Order demo-521ed9a3855a27a4f33b8a6a8ceba02a223ee69bc8b2d3ec completed two fresh Gemini calls, two fresh OutLayer executions, both direct Intel-proof contract acceptances, fixed share allocation and actual withdrawal of 0.001 Testnet NEAR. Its database contains two model.response events, no model.replay.imported event, and a verified settlement.withdrawal.confirmed event. The provider responses match the exact delivered artifacts. Generation itself is operator-recorded, not TEE-attested.
 
-- First funded order: real Gemini extraction accepted by the escrow after direct
-  Intel proof verification. Comparison did not finish by the fixed cutoff.
-- The first order was marked expired and its entire 0.001 Testnet NEAR principal
-  refunded. Callback success and final `refunded` state were verified.
-- Second six-hour order: unchanged recorded outputs from a previously successful
-  Gemini run were explicitly replayed. No new live inference is claimed.
-- Both second-order OutLayer executions were fresh. Their Intel proofs passed
-  independent verification and the escrow's direct proof gate.
-- Comparison consumed the exact accepted extraction. Both task results were
-  accepted before fixed allocations were credited.
-- Actual withdrawal of the full 0.001 Testnet NEAR credit was verified, including
-  the successful private callback and absence of failed receipts.
+Final withdrawal: 9ggfPm7tztGa5gBMD4Qqfd6UWTQTDF6nT2JrRoMREmFc. Its exact call, principal amount, matching pending/resolved operation, successful private callback and absence of failed receipts were checked.
 
-See the public [receipt manifest](../apps/test-console/public/release-evidence.json).
-The dashboard Evidence page and `/demo` expose these receipts separately from the
-historical designated-verifier contract `arlos.testnet`.
+The [public receipt manifest](../apps/test-console/public/release-evidence.json) includes the current nine-transaction path and separate refund/historical records. Public fixtures under tests/fixtures/release-v3 reproduce consistency checks without keys; fixture files do not authenticate an RPC response or replace Intel verification.
 
-## Runnable and checked
+## Worker compatibility and upgrade boundary
 
-The fixture demo requires Node.js 24.16+ and dependencies, but no environment file,
-wallet, inference key or Supabase. Its smoke check clears service variables,
-starts a fresh SQLite instance, checks local assets, completes both tasks and
-downloads evidence. It does not move funds.
+OutLayer returned two distinct independently reviewed worker identities. V3 freezes both exact measurement digests, including all five TDX measurements. Intel signatures, UpToDate/advisory checks, judge/code/input/output/context bindings, revisions and deadlines remain mandatory. Registry approval does not dynamically expand the allowlist.
 
-Application/security, strict TypeScript and syntax checks are release gates.
-Record their actual final results in the release validation report rather than
-adding counts from separate historical runs. Financial proof source and deployed
-bytecode were not changed for the six-hour/operator improvements.
+Code-only upgrade 9m1ikzhVyH6No6eqHCTqomrAMKHngZKWY3uwbZtiqtLf did not initialize storage. Both prior v2 orders and pending requests were compared before/after upgrade and remained exactly unchanged. A Sandbox upgrade test confirms the same property and subsequent v2 refund capability. No existing order was silently migrated to wider trust criteria.
+
+## Separate refund and unfinished historical attempts
+
+The earlier v2 order demo-1ce52318c8f490f9e774cf1f7861e79dca901eb2bf23a27a was marked expired and its full 0.001 NEAR principal refunded in 2uWdqvtXxnFNzJPC6kCbaTBkJizAfM1SKS8mKAutiY94. This predates the v3 upgrade. It is an incomplete-work expiry path, not a separately executed v3 rejection/refund.
+
+Other failed/unfinished operator attempts are preserved in local run directories and are not labeled paid or refunded. Their frozen deadlines/refund paths remain; final cleanup may still require owner signatures. Gas and OutLayer execution charges are not included in principal refunds.
+
+## Reproduction and wallet
+
+The default fixture console on 4317 needs Node 24.16+ and dependencies, no .env, wallet, cloud database or provider key. The optional authenticated PostgreSQL console on 4318 uses the current escrow and owner-operated Gemini workflow. Signing/payment commands remain explicit CLI steps.
+
+Intear Ed25519 login, logout, reconnect and refresh persistence were owner-tested with arlosxq.testnet. The original arlosx.testnet currently uses ML-DSA and cannot use this Ed25519-only login. Orders remain isolated by owner; none were reassigned.
+
+The known exposed old arlos.testnet key was revoked in CsBoyyfftFGK1rzL1k4eV659R19JnHapfzojuEe6pggX and the retained replacement checked. This is not certification of every historical credential.
 
 ## Remaining owner gates
 
-- Video recording and final owner review of the submission.
-- Public source is published at https://github.com/ArlosX/near- under owner-approved MIT; final wallet-compatibility/security follow-up is being synchronized.
-- The known exposed legacy key was revoked, transaction `CsBoyyfftFGK1rzL1k4eV659R19JnHapfzojuEe6pggX`. Finalized key state confirms its absence and retention of the new owner-controlled Full Access key. Both owner wallets are now Intear. This checks the known exposed key; it is not a claim about every historical credential.
-- X post with the video and final submission fields/consent approved by owner.
+Final short UI acceptance, video recording, public X demo post, contact/mainnet payout details and approval of the exact submission. Source publication and final clean-copy results are recorded in the 13 November release validation report. Earlier dated reports are historical snapshots.
 
-No production-readiness certification, independent audit, arbitrary source-truth
-verification, new live provider execution for the replay run, or competition
-percentile is claimed. Mainnet funds are outside this demonstration.
-
-## Wallet compatibility
-
-MyNearWallet no longer accepts new app connections. The dashboard now uses the official Intear V3 direct-popup protocol with a one-time NEP-413 sign-in proof. An ephemeral browser WebCrypto key authenticates the handshake only; no on-chain FunctionCall key, payment authority or provider SDK is requested. The existing server verifies the challenge, origin, signature and finalized full-access key ownership. The server-signed payload omits the optional callback URL. Owner browser acceptance passed with `arlosxq.testnet`: login, logout, remaining signed out after refresh, reconnect and remaining signed in after refresh. Its empty workspace is expected account isolation. The original `arlosx.testnet` currently has an ML-DSA key, which this Ed25519-only login does not support; its historical orders are preserved and are not reassigned.
+No production hosting, independent audit, arbitrary source truth, TEE-attested generation, independent buyer/worker custody in the single-owner demo, or competition percentile is claimed. Deployment-key authority and OutLayer governance remain trust boundaries.

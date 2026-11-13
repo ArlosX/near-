@@ -6,7 +6,9 @@ import {canonicalJson,hash as hashValue,hashBytes} from '../../packages/agreemen
 import {judgeConformanceVectors} from '../../scripts/judge-conformance-vectors.mjs';
 
 assert.equal(process.platform,'linux','Run Sandbox tests inside Linux/WSL. Windows native unit tests are separate.');
-const wasm=await readFile(new URL('../../contracts/work-escrow/target/wasm32-unknown-unknown/release/work_escrow.wasm',import.meta.url));
+const v3=process.env.TEST_TEE_PROFILE==='v3';
+const v2=process.env.TEST_TEE_PROFILE==='v2'||v3;
+const wasm=await readFile(new URL(v3?'../../artifacts/local/worker-profile-v3/work_escrow_v3.wasm':v2?'../../artifacts/local/worker-profile-v2/work_escrow_v2.wasm':'../../contracts/work-escrow/target/wasm32-unknown-unknown/release/work_escrow.wasm',import.meta.url));
 const actorWasm=await readFile(new URL('../../contracts/work-escrow/target/wasm32-unknown-unknown/release/escrow_test_actor.wasm',import.meta.url));
 const NEAR=10n**24n,GAS=150n*10n**12n,hash='sha256:'+'a'.repeat(64);
 async function setup(t){
@@ -166,7 +168,8 @@ async function teeFixture(x,id='tee-order',seconds=3600){
 
 test('Sandbox TEE funding freezes profile and old verifier cannot accept or reject work',{timeout:180000},async t=>{
  const x=await setup(t),f=await teeFixture(x);await f.fund();
- const initial=await f.state();assert.equal(initial.verification_mode,'outlayer-tdx-direct-v1');
+ const initial=await f.state();assert.equal(initial.verification_mode,v3?'outlayer-tdx-direct-v3':v2?'outlayer-tdx-direct-v2':'outlayer-tdx-direct-v1');
+ assert.equal(initial.worker_measurements_hash,v3?'ab0bbc0d27392a4c2a68968141b1ed38cae3e6a88a369d90552622d55b5e732d':v2?'d09433697b6795af07f09ba73ec15b4af7e01da08b60e28a5d496a07573a6ceb':'5fccdb6924dbbe7ab09a4ca412e1b264196e44c47c795774326da89a376e45c3');
  assert.equal(initial.code_hash,teeCode);assert.equal(initial.state.agreement_json,canonicalJson(f.a));
  for(const accepted of [true,false])await assert.rejects(()=>x.result(f.id,'extract',accepted),/TEE mode.*cannot record/);
  await assert.rejects(()=>x.call(x.client,'create_tee_work_order',{agreement_json:canonicalJson(f.a)},NEAR),/duplicate order/);
@@ -204,7 +207,7 @@ test('Sandbox TEE request commits chain-generated context and rejects consistent
  assert.equal(inner.verification.approvedAgreementHash,hashValue(f.a));
  await assert.rejects(()=>f.prepare(),/already pending/);
  await assert.rejects(()=>x.result(f.id,'extract'),/TEE mode.*cannot record/);
- const original=JSON.parse((await readFile(new URL('../fixtures/tee/extract.proof.json',import.meta.url),'utf8')).replace(/^\uFEFF/,''));
+ const original=JSON.parse((await readFile(new URL(v2?'../../artifacts/local/stage6-success-live/extract.proof.json':'../fixtures/tee/extract.proof.json',import.meta.url),'utf8')).replace(/^\uFEFF/,''));
  const stdout=JSON.parse(original.output_raw),guest=JSON.parse(stdout),r=guest.result;
  Object.assign(r,{requestId:pending.request_id,inputHash:pending.inner_hash});
  Object.assign(r.verification,{orderId:f.id,agreementHash:hashValue(f.a),policyHash:pending.policy_hash,artifactHash:pending.artifact_hash,sourceManifestHash:f.a.sourceManifestHash,artifactVersion:1});
@@ -278,3 +281,16 @@ test('Sandbox lean deployment preserves storage and principal with 14.25 NEAR op
  assert.equal((await lean.view('get_balance',{account:x.recipient.accountId})).available,'0');
 });
 
+
+test('Sandbox profile upgrade preserves funded v2 agreement and pending request while new orders freeze v3',{timeout:180000},async t=>{
+ if(!v3)return;
+ const x=await setup(t),oldWasm=await readFile(new URL('../../artifacts/local/worker-profile-v2/work_escrow_v2.wasm',import.meta.url));
+ await x.escrow.deploy(oldWasm);
+ const old=await teeFixture(x,'unchanged-v2',45);await old.fund();await old.prepare();
+ const before=await old.state(),accounting=await x.accounting();assert.equal(before.verification_mode,'outlayer-tdx-direct-v2');
+ await x.escrow.deploy(wasm);
+ assert.deepEqual(await old.state(),before);assert.deepEqual(await x.accounting(),accounting);
+ const fresh=await teeFixture(x,'new-v3',3600);await fresh.fund();const state=await fresh.state();
+ assert.equal(state.verification_mode,'outlayer-tdx-direct-v3');assert.equal(state.worker_measurements_hash,'ab0bbc0d27392a4c2a68968141b1ed38cae3e6a88a369d90552622d55b5e732d');assert.deepEqual(await old.state(),before);
+ await x.worker.provider.fastForward(300);await x.call(x.root,'mark_expired',{order_id:old.id});assert.equal(await x.call(x.client,'claim_refund',{order_id:old.id}),true);assert.equal((await x.order(old.id)).refunded,true);conserved(await x.accounting());
+});

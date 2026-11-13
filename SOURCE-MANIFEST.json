@@ -1,13 +1,13 @@
 {
-  "createdAt": "2026-11-12T19:05:48.104Z",
+  "createdAt": "2026-11-13T14:32:39.514Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
-      "sha256": "d6e77fa1927412190dbb840326e0a3d78a4a25b45a9cbdd8297ee3f180b626a6"
+      "sha256": "67bff98e2b29baf51076ba81efd5a8e5299f37140aa7768a5eab846367d5e042"
     },
     {
       "path": "apps/test-console/public/demo.html",
-      "sha256": "89fb5961517a44b21da055414283e0a12d76043d32a5bb5a2b460f3b32158558"
+      "sha256": "78ad4de0d98116bc00e95ea006b1a35cce9d07d8a9885f435362bbef869404f1"
     },
     {
       "path": "apps/test-console/public/fonts/OFL-Space-Grotesk.txt",
@@ -19,11 +19,11 @@
     },
     {
       "path": "apps/test-console/public/index.html",
-      "sha256": "87e02ffff5a81281fd3a8b82f2dbd71b60ee199aae7debd46fb0330aed066114"
+      "sha256": "9077465fdb8d884796c672a49af715f29d7801b70fdb3f00227765e08dc9cb7b"
     },
     {
       "path": "apps/test-console/public/release-evidence.json",
-      "sha256": "0fb4b84ee6aea2f33d73e83a20da39ed4322fc7253aa0f3049051ece73b4ab89"
+      "sha256": "2c670f5bec9b97ac8d807c1d8ab3ec400f31ba9daf53034963d0ef619c39aeb3"
     },
     {
       "path": "apps/test-console/public/style.css",
@@ -51,11 +51,11 @@
     },
     {
       "path": "contracts/tee-proof-bench/Cargo.toml",
-      "sha256": "12af5134e1e6a5c50db93cd59a6948bb3ca14006a4e0bc5d916b48b113d27c2a"
+      "sha256": "9e1b72637f424c0a213735c151070b1c7f21300754b77474abe4478d0e96d58c"
     },
     {
       "path": "contracts/tee-proof-bench/src/lib.rs",
-      "sha256": "66b6d1a05b7150e4fba14b6e19a15615792ef5907c7bb29227e680b54bff98e5"
+      "sha256": "3485f4df551884d7f9628fdfa11b780d962fcf826cbf5ef29a9da4a4c117d78b"
     },
     {
       "path": "contracts/test-actor/Cargo.lock",
@@ -75,7 +75,7 @@
     },
     {
       "path": "contracts/work-escrow/Cargo.toml",
-      "sha256": "d7638a0aac745e5cce3e5ce611c5fd8817d8d041271d3623c34615717eb16a19"
+      "sha256": "8473d84f056dfe29a491bb56b3f1ce10e9a6853a980c8cf040b1dc3ec6fa6e4a"
     },
     {
       "path": "contracts/work-escrow/README.md",
@@ -83,7 +83,7 @@
     },
     {
       "path": "contracts/work-escrow/src/contract.rs",
-      "sha256": "3d82ed4d227a3a652ff6e137dd15bf69227af749b864b0b8c132e3980f25e9a0"
+      "sha256": "d0ffa32b278835cc379316d9fd8291fc3d74c4431cd1834b2c698c8936dd18c6"
     },
     {
       "path": "contracts/work-escrow/src/intel-root.der",
@@ -103,7 +103,7 @@
     },
     {
       "path": "contracts/work-escrow/src/tee.rs",
-      "sha256": "36b776d75f4134de2cb26fc5b934953ed8804e25575ed3e675640714234e48d4"
+      "sha256": "578a0a75a025a01723776e0378a027faeb0e3ac9b783e7e9154970384a95f606"
     },
     {
       "path": "docs/agent-security-probes-2026-11-11.md",
@@ -123,7 +123,7 @@
     },
     {
       "path": "docs/CURRENT-STATUS.md",
-      "sha256": "9349437935f08a880fc754d1bfe6f2d4003e0ed3aa22e8ee514c92fa7a4eddc9"
+      "sha256": "23aebd21aab49446c7980e7fd7d95276b900d0428930362e6881c6a865076ef9"
     },
     {
       "path": "docs/decisions.md",
@@ -131,7 +131,7 @@
     },
     {
       "path": "docs/demo-script-release.md",
-      "sha256": "ed7c226472e3155ca71d4a2865d1fe20caf6a97eeabd636dee3e9d86166f206d"
+      "sha256": "02919d3f85883793c63febdd961c7b8e1705156d4854384cd0e81e0606bdca52"
     },
     {
       "path": "docs/environment-audit.md",
@@ -203,11 +203,15 @@
     },
     {
       "path": "docs/release-roadmap.md",
-      "sha256": "97787f45d1203be4e98b00dba844431c11bb7e5fb80493c1c4ee13528b5e8005"
+      "sha256": "44b45323af20d1e07154a5d13ecc5d1bdcc6db286742230db32af2e63c5d3b0c"
     },
     {
       "path": "docs/release-validation-2026-11-12.md",
       "sha256": "610b3790ea653fa8aeedf7d145013de4c3e15914e056c65647b7493eb500c7c6"
+    },
+    {
+      "path": "docs/release-validation-2026-11-13.md",
+      "sha256": "8d4ba39eadd5892190b84ac1565bef477e3a1749a1792823a32d6b2d01017114"
     },
     {
       "path": "docs/sandbox-handoff.md",
@@ -227,7 +231,7 @@
     },
     {
       "path": "docs/submission.md",
-      "sha256": "f7d1348afe8c884b66f0eb977c5300c97cb5b4020e1245ac407540a85941f609"
+      "sha256": "369428b1eb232ed2401b3307b07b1e8f128c44c70a0728714ed56d291708ed20"
     },
     {
       "path": "docs/tee-attestation-validation-2026-11-12.md",
@@ -266,16 +270,20 @@
       "sha256": "07dfe86077c825c5375d3ba7dfa947feef618e5f77861616304f09b3f732a11e"
     },
     {
+      "path": "docs/worker-profile-v2.md",
+      "sha256": "f8f63701643a5cd1d2a21b8f582810593b41aa28b14b3d3a4088b8d71873d853"
+    },
+    {
       "path": "packages/agreements/package.json",
       "sha256": "a2d6fc2b11e316c96e15dc65fea8ffb914e6a6d144b55dbf7a7436322c41f428"
     },
     {
       "path": "packages/agreements/src/agreement.ts",
-      "sha256": "ef9e31c8bbd496113c5cf1d0b6e0e8c7396dc7ec09ff9fa6eb3b4bcd55448fbc"
+      "sha256": "187415234fa18aac2165b0032f7ca1f99cc8ea2f9e7c7cd38996f862eac2675b"
     },
     {
       "path": "packages/agreements/src/funding-confirmation.ts",
-      "sha256": "791753e16c15de887853f76d9c133507283a37f84d80bfb7b16c4bbebc8c3632"
+      "sha256": "b6f8d7b563224bfe2d2e69ada5f838376b3d2637be406c21a33aa67abc2c6b4e"
     },
     {
       "path": "packages/agreements/src/refund-confirmation.ts",
@@ -291,7 +299,7 @@
     },
     {
       "path": "packages/agreements/src/tee-settlement.ts",
-      "sha256": "e98bb06bf05f7970a6dac0f7170eaed2b017ef5132d8b563c090fcce9b03bf7a"
+      "sha256": "f073a148c661402e8246fd08d4fad2d71b6718432822e0690c551bb8d64dbb63"
     },
     {
       "path": "packages/agreements/src/withdrawal-confirmation.ts",
@@ -311,7 +319,7 @@
     },
     {
       "path": "packages/database/src/postgres-execution-store.ts",
-      "sha256": "53f6429c24cb627f7e2b826ec61afa6af042df527852356964887291592e2606"
+      "sha256": "f78ff17c83d4ade470170500d7e85f2fb12afb93810ec47ca6535cede55965ae"
     },
     {
       "path": "packages/database/src/postgres-store.ts",
@@ -351,7 +359,7 @@
     },
     {
       "path": "packages/orchestration/src/demo-data.ts",
-      "sha256": "1071e548a00de2c2de99383bb4d56d7deaeb4ef3bb4b490c14545b7635290abd"
+      "sha256": "3ab271ad253c8b38f23efbcbad098d3a3f67f7d48da98a36c190958253a33015"
     },
     {
       "path": "packages/orchestration/src/local-worker.ts",
@@ -399,11 +407,15 @@
     },
     {
       "path": "packages/shared/src/operator-run.ts",
-      "sha256": "fb00ca1b61aaa77a547195bae46490f31b3712ee947ed14e86cd5f88147d8beb"
+      "sha256": "1d81d8b7e43a63adb7b2254a08158d05d555a4d94012f2a2cf2eba24655c58ac"
+    },
+    {
+      "path": "packages/shared/src/tee-profiles.ts",
+      "sha256": "7345600634569e780d762bdf89fee1be3ae50791b3ecfc6a8909ccd6a8aba829"
     },
     {
       "path": "packages/shared/src/testnet-config.ts",
-      "sha256": "fd8642fbba15f64cd8f41c852dfb574387a95854b382d82b54f583a77271273f"
+      "sha256": "429d14f69f8c9773b937afb9b25ee57af3aa3863cb9f87cea0c1a42f4a0fb51f"
     },
     {
       "path": "packages/verification/package.json",
@@ -472,6 +484,10 @@
     {
       "path": "scripts/deploy-testnet.ps1",
       "sha256": "7f5117ea7403fbe288db659175a2269b30a47489b323a724f4d5b0d1a4071119"
+    },
+    {
+      "path": "scripts/deploy-worker-v2.ps1",
+      "sha256": "2dfa3519c25dadb28a1c36f9f60b7ac4a1194c7fa2720970fcd114601e664a59"
     },
     {
       "path": "scripts/deployment-code-hash.mjs",
@@ -543,7 +559,7 @@
     },
     {
       "path": "scripts/prepare-withdrawal.ts",
-      "sha256": "68e229118a0cf6b7f5c3a42c2e997da380eac8876a126ad374884eb34b24187c"
+      "sha256": "d605c79a2fd4cb4c1050d2e2567a081bc975cace42ae2ed8af1a86a1c9ab22be"
     },
     {
       "path": "scripts/read-legacy-keys.mjs",
@@ -560,6 +576,14 @@
     {
       "path": "scripts/release-topup.ps1",
       "sha256": "80323111431814bad6f940d4481f09f814eac7eeb014b51e9dc54d8437761ce7"
+    },
+    {
+      "path": "scripts/review-worker-v2.mjs",
+      "sha256": "2fbe39c181b9b2d6cad7daf7f626cff1fa9585b2b1e5d0138694480538ab1571"
+    },
+    {
+      "path": "scripts/review-worker-v3-upgrade.mjs",
+      "sha256": "ac292230dbf57a1e7480f0914954418a789e678023956ab013ea195fc1e6c399"
     },
     {
       "path": "scripts/run-local-judge.mjs",
@@ -595,15 +619,19 @@
     },
     {
       "path": "scripts/stage6-proof.mjs",
-      "sha256": "216a70ec55d95c071b48ab349e69ab9b818c79ffaa95a453632579fd081aa794"
+      "sha256": "71d3dd5844a2b9db9fff6334ca10407cb9f488a5194d3bf77e4da61958dd000c"
     },
     {
       "path": "scripts/stage6-success.ts",
-      "sha256": "514960af63f78f2235ceeb784ad2f70f4d368646f56e20fad82607b419810579"
+      "sha256": "f14156e380a1a14b394a012699adc90c3b064a4bca8c8f58ec87e09c6f1276eb"
     },
     {
       "path": "scripts/stage6-testnet.ps1",
-      "sha256": "06411aa79fcf6bc99382e010254ad99d3f50cfdf7f144cebc1499cd05965db1f"
+      "sha256": "dc2d6e076244559ae5a4f03938e639f0114985da92aae64a48a18d2166f5b381"
+    },
+    {
+      "path": "scripts/tee-measurement-preflight.mjs",
+      "sha256": "482a3f76b4b7d1c49c3f15ef886f8ad1f0ec296c444d5bd9065b7c07cfab513b"
     },
     {
       "path": "scripts/test-postgres-local.sh",
@@ -612,6 +640,10 @@
     {
       "path": "scripts/test-wasi-judge.mjs",
       "sha256": "9ca1ca00ad1a8a856d52a6fe3949e67cc9e85b4e10506e76c0111d28f977d1b9"
+    },
+    {
+      "path": "scripts/upgrade-worker-v3.ps1",
+      "sha256": "2ad1f8dfef24c987af96c9ea33db37d806b3c6bf8c74e57e64b4762ebd7b9ee6"
     },
     {
       "path": "supabase/migrations/0001_workflow_core.sql",
@@ -694,6 +726,30 @@
       "sha256": "666b6aae07769e4a445f34c989a17a8ff4ca248922bd4aa799ef1a66fa7d3230"
     },
     {
+      "path": "tests/fixtures/release-v3/agreement.json",
+      "sha256": "44e880c0871dec4592933d98a60fdc0816920ca2ea4416c33c368ca86c4a94e4"
+    },
+    {
+      "path": "tests/fixtures/release-v3/compare.proof.json",
+      "sha256": "146c4b2d6b19b9634a44ca1e63c4ebb341b1bd333a72efa09072b1ba2a9e7205"
+    },
+    {
+      "path": "tests/fixtures/release-v3/extract.proof.json",
+      "sha256": "561ea230c71e6ac86245a722bd848888cd767c1ca8def962ca5c38e4c8623d82"
+    },
+    {
+      "path": "tests/fixtures/release-v3/model-provenance.json",
+      "sha256": "5e933eff35334d07e532dabb1198ee47e62be881c4cd1316611b669418d1a9b5"
+    },
+    {
+      "path": "tests/fixtures/release-v3/reports.json",
+      "sha256": "83f32512e3e1e546233d58b56a7d2d1cb678cdcb378c9fdc3ca11cf6fc521fbd"
+    },
+    {
+      "path": "tests/fixtures/release-v3/withdrawal-receipt.json",
+      "sha256": "87ca6e649161a565fda50d2ade692a33393f61275d5c6a73c559ff6ef1c9b2ab"
+    },
+    {
       "path": "tests/fixtures/tee/compare.proof.json",
       "sha256": "488c415ba7f7273f911ee83c18dcf626b639c2ff7452a367070909cfb301877b"
     },
@@ -704,6 +760,10 @@
     {
       "path": "tests/fixtures/tee/README.md",
       "sha256": "921d8deb90a265fd1f5808c670d5eec34b2e102e5615ef1044e56fbf6ed68f7c"
+    },
+    {
+      "path": "tests/fixtures/tee/worker-v2.proof.json",
+      "sha256": "98940ccb4ae210da56543ad4e9adeaaa7526800d41723f15038f93cc036efb39"
     },
     {
       "path": "tests/fixtures/verification.mjs",
@@ -739,7 +799,7 @@
     },
     {
       "path": "tests/operator-run.test.mjs",
-      "sha256": "1bca05a581b248cb504576826145ba5a9ffb0981c0c8bc9d271d0c04b9fb83b0"
+      "sha256": "906ff27c5869b60d8bd2d5b5717ec30a19fe8a7ce8f6c92ae4b8d90936ddf056"
     },
     {
       "path": "tests/postgres/check-remote.mjs",
@@ -766,8 +826,12 @@
       "sha256": "0facc565016efcc033bfdba30e85878ab6ae0e095e88a21e424a8101d61aaec7"
     },
     {
+      "path": "tests/release-v3.test.mjs",
+      "sha256": "d327c15228e15491fd1abb7e78196b63fb9b14181e99a9db6130aeaf8830a00a"
+    },
+    {
       "path": "tests/sandbox/escrow.test.mjs",
-      "sha256": "4d25b7f37b596030472587ec282cfbde0f22fb6e9b5877e0776de8da208a0db6"
+      "sha256": "84b0303d3eab6204ea35a9f686ac81ba417469f0b71f8bf980a0010630287067"
     },
     {
       "path": "tests/sandbox/package-lock.json",
@@ -780,6 +844,14 @@
     {
       "path": "tests/sandbox/tee-crypto-bench.mjs",
       "sha256": "e162a47641ad75142aa5c38457a00c4f74cf681ad4cd929f419d0d55680f1960"
+    },
+    {
+      "path": "tests/sandbox/tee-worker-v2.mjs",
+      "sha256": "d801ded3d05271e26996f4eeb1bd22ce69413fc0a1a0469de82d54e5fea4d9e5"
+    },
+    {
+      "path": "tests/sandbox/tee-worker-v3.mjs",
+      "sha256": "b5f6436934319e9ace8e5c821922844196ec2d160ac8ac5ccc70281b5a23b73a"
     },
     {
       "path": "tests/security-layers.test.mjs",
@@ -798,6 +870,10 @@
       "sha256": "c57f39306c7d6823c5b6d5a5c3bc70768ab43ce1ed128f5d342fca3ad5129a3e"
     },
     {
+      "path": "tests/tee-measurement-preflight.test.mjs",
+      "sha256": "141f0e3c54109777e7a93b6d3a97e5b58e703abf7a9587d1ad7c56b714be8929"
+    },
+    {
       "path": "tests/tee-proof.test.mjs",
       "sha256": "d3921b10b5b7f1359ada83604c97c9be22d837cc11cd6da73c3fb98ca679eeb2"
     },
@@ -807,7 +883,7 @@
     },
     {
       "path": "tests/tee-settlement.test.mjs",
-      "sha256": "8ca62ebebebe9e6ff85946afdb84c3a0a23249142e5a9721187e07a25e1c0586"
+      "sha256": "6945c971a345b1c3d4622bf141cd50c64ebd35bd47014ac8f622451ab099fc30"
     },
     {
       "path": "tests/verification.test.mjs",
@@ -831,7 +907,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "b8e1c30acd6bd39aaca6a8a48feb3096c73a276b2c10d96fa96054a33bc7de76"
+      "sha256": "9c611ca8d7a694656b7e02cbe5fa54118886659f1d3c9833403b61ca13817094"
     },
     {
       "path": "package.json",

@@ -1,0 +1,46 @@
+{
+  "orderId": "demo-521ed9a3855a27a4f33b8a6a8ceba02a223ee69bc8b2d3ec",
+  "execution": "fresh-model-calls",
+  "generationTrust": "server-recorded provider responses; generation itself is not TEE-attested",
+  "replay": false,
+  "tasks": [
+    {
+      "taskId": "extract",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "requestHash": "sha256:c5ae2aaf20e2b8eb51be5b1ca2e7bd85d49ad94a280d8de7519cdbc03558a883",
+      "reservedSeq": 93,
+      "responseSeq": 94,
+      "completion": {
+        "usage": {
+          "total_tokens": 707,
+          "prompt_tokens": 424,
+          "completion_tokens": 283
+        },
+        "content": "{\n  \"schemaVersion\": \"1\",\n  \"taskId\": \"extract\",\n  \"version\": 1,\n  \"inputArtifactHashes\": {},\n  \"suppliers\": [\n    {\n      \"id\": \"sup-1\",\n      \"sourceId\": \"source-a\",\n      \"quote\": \"SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.\",\n      \"unitPriceMinor\": \"1000\",\n      \"quantity\": 2,\n      \"shippingMinor\": \"100\",\n      \"currency\": \"USD\",\n      \"deliveryDays\": 3,\n      \"totalMinor\": \"2100\"\n    },\n    {\n      \"id\": \"sup-2\",\n      \"sourceId\": \"source-b\",\n      \"quote\": \"SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.\",\n      \"unitPriceMinor\": \"1300\",\n      \"quantity\": 2,\n      \"shippingMinor\": \"0\",\n      \"currency\": \"USD\",\n      \"deliveryDays\": null,\n      \"totalMinor\": \"2600\"\n    }\n  ],\n  \"selectedSupplierId\": null\n}",
+        "requestId": null,
+        "finishReason": "stop"
+      },
+      "artifactHash": "sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1"
+    },
+    {
+      "taskId": "compare",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "requestHash": "sha256:ce59b672aba1f3e5b5822e982ee048ae004ca9cc04a1738223514ceb26088e7d",
+      "reservedSeq": 98,
+      "responseSeq": 99,
+      "completion": {
+        "usage": {
+          "total_tokens": 1208,
+          "prompt_tokens": 849,
+          "completion_tokens": 359
+        },
+        "content": "{\n  \"schemaVersion\": \"1\",\n  \"taskId\": \"compare\",\n  \"version\": 1,\n  \"inputArtifactHashes\": {\n    \"extract\": \"sha256:7f970fc55826c32b9d147ff92116fef9dee1be188603070a26f7c9c02fa807b1\"\n  },\n  \"suppliers\": [\n    {\n      \"id\": \"sup-1\",\n      \"sourceId\": \"source-a\",\n      \"quote\": \"SYNTHETIC A: unit price 1000, shipping 100, delivery 3 days.\",\n      \"unitPriceMinor\": \"1000\",\n      \"quantity\": 2,\n      \"shippingMinor\": \"100\",\n      \"currency\": \"USD\",\n      \"deliveryDays\": 3,\n      \"totalMinor\": \"2100\"\n    },\n    {\n      \"id\": \"sup-2\",\n      \"sourceId\": \"source-b\",\n      \"quote\": \"SYNTHETIC B: unit price 1300, shipping 0, delivery unknown.\",\n      \"unitPriceMinor\": \"1300\",\n      \"quantity\": 2,\n      \"shippingMinor\": \"0\",\n      \"currency\": \"USD\",\n      \"deliveryDays\": null,\n      \"totalMinor\": \"2600\"\n    }\n  ],\n  \"selectedSupplierId\": \"sup-1\"\n}",
+        "requestId": null,
+        "finishReason": "stop"
+      },
+      "artifactHash": "sha256:eb2f85282a416e8ea58abaf6b9e96a6eed74167667cae8ee077d8a2c45ca40b9"
+    }
+  ]
+}

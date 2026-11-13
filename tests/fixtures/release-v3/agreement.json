@@ -1,0 +1,84 @@
+{
+  "asset": "NEAR",
+  "clientAccountId": "arlosxq.testnet",
+  "contractId": "agentwork-tee-v2-arlosxq.testnet",
+  "failure": "full_client_refund",
+  "network": "testnet",
+  "orderId": "demo-521ed9a3855a27a4f33b8a6a8ceba02a223ee69bc8b2d3ec",
+  "resultCutoffNs": "1794597918429000000",
+  "schemaVersion": "1.2",
+  "settlement": "full_parent_success",
+  "sourceManifestHash": "sha256:2a318d0564af81ccdd6a5cd831f712bc8402cf0887bef954fa3426136c1eac66",
+  "tasks": [
+    {
+      "agentId": "extract-worker",
+      "amountAtomic": "400000000000000000000",
+      "criteria": [
+        {
+          "checker": "source_quote",
+          "id": "source_quote",
+          "version": 1
+        },
+        {
+          "checker": "total_cost",
+          "id": "total_cost",
+          "version": 1
+        }
+      ],
+      "dependsOn": [],
+      "id": "extract",
+      "maxRevisions": 1,
+      "recipientAccountId": "arlosxq.testnet",
+      "required": true,
+      "runtimeVersion": "v1",
+      "verificationPolicyHash": "sha256:4e426c71f007592e3853de78e7c28d2ece961f0f8dbb431780cb8167a1afff00"
+    },
+    {
+      "agentId": "compare-worker",
+      "amountAtomic": "600000000000000000000",
+      "criteria": [
+        {
+          "checker": "source_quote",
+          "id": "source_quote",
+          "version": 1
+        },
+        {
+          "checker": "total_cost",
+          "id": "total_cost",
+          "version": 1
+        },
+        {
+          "checker": "selection",
+          "id": "selection",
+          "version": 1
+        },
+        {
+          "checker": "dependency_hash",
+          "id": "dependency_hash",
+          "version": 1
+        },
+        {
+          "checker": "budget",
+          "id": "budget",
+          "version": 1
+        },
+        {
+          "checker": "delivery",
+          "id": "delivery",
+          "version": 1
+        }
+      ],
+      "dependsOn": [
+        "extract"
+      ],
+      "id": "compare",
+      "maxRevisions": 1,
+      "recipientAccountId": "arlosxq.testnet",
+      "required": true,
+      "runtimeVersion": "v1",
+      "verificationPolicyHash": "sha256:7096a46d0e081acf361a648f8647175bed36341f684fb876a32134c84cb145cc"
+    }
+  ],
+  "totalAmountAtomic": "1000000000000000000000",
+  "verifierAccountId": "arlosxq.testnet"
+}

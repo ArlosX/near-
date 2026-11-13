@@ -266,7 +266,7 @@ function renderGuidedAction(){
   if(financial==='REFUNDED'){
    title='Full refund confirmed';copy='The contract confirms the principal was refunded. Inspect the recorded evidence.';label='Review evidence';run=()=>showPage('evidence');
   }else if(financial==='SUCCESS_CREDITED'){
-   title='Shares allocated · recipient claim follows';copy='Allocation is confirmed. A successful withdrawal receipt is required to confirm payment.';label='Review evidence';run=()=>showPage('evidence');
+   const paid=detail.events.some(e=>e.type==='settlement.withdrawal.confirmed');title=paid?'Withdrawal confirmed · paid on Testnet':'Shares allocated · recipient claim follows';copy=paid?'The full credit was transferred and its successful callback verified.':'Allocation is confirmed. A successful withdrawal receipt is required to confirm payment.';label='Review evidence';run=()=>showPage('evidence');
   }else if(['FAILED_LOCAL','EXPIRED_LOCAL'].includes(state.status)){
    title=state.status==='FAILED_LOCAL'?'Final failure · dependent work stopped':'Deadline reached · work stopped';
    copy='No partial worker payment is earned. '+(detail.escrowAvailable&&['FUNDED','FAILED','EXPIRED'].includes(financial)?'Check contract refund eligibility, then sign the claim.':'Inspect the result. Sample orders have no funded principal to refund.');
@@ -480,7 +480,7 @@ action(async()=>{
 // Public, immutable receipt links. These are recorded evidence, not live polling.
 void fetch('/release-evidence.json').then(r=>{if(!r.ok)throw Error('Receipt manifest unavailable');return r.json();}).then(manifest=>{
  const container=$('public-receipts');if(!container)return;
- for(const [key,title] of [['success','TEE success · recorded worker outputs'],['refund','TEE expiry · full-principal refund']]){
+ for(const [key,title] of [['success','Live Gemini → TEE → confirmed payment'],['refund','Separate v2 expiry · full-principal refund']]){
   container.append(el('h3',title));const links=el('div',undefined,'receipt-links');
   for(const tx of manifest[key]?.transactions??[]){if(!/^[1-9A-HJ-NP-Za-km-z]{43,44}$/.test(tx.hash))continue;const link=el('a',tx.label+' ↗');link.href='https://explorer.testnet.near.org/transactions/'+tx.hash;link.target='_blank';link.rel='noopener noreferrer';links.append(link);}
   container.append(links);

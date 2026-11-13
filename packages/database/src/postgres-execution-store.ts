@@ -1,4 +1,5 @@
-import {TEE_PROFILE,readFinalTeeOrder,assertTeeTaskReady,planTeeTask} from '../../agreements/src/tee-settlement.ts';
+import {isTeeProfile} from '../../shared/src/tee-profiles.ts';
+import {readFinalTeeOrder,assertTeeTaskReady,planTeeTask} from '../../agreements/src/tee-settlement.ts';
 import {AsyncLocalStorage} from 'node:async_hooks';
 import {randomUUID} from 'node:crypto';
 import {canonicalJson,hash,hashBytes} from '../../agreements/src/agreement.ts';
@@ -22,11 +23,11 @@ type Context={client:SqlClient;lease?:JobLease};
 export class PostgresExecutionStore {
  private context=new AsyncLocalStorage<Context>();
  private pool:SqlPool;private schema:string;private core:PostgresStore;private storage:EvidenceStorage|undefined;
- readonly verificationMode:'outlayer-tdx-direct-v1'|undefined;
+ readonly verificationMode:'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3'|undefined;
  readonly actor:string;
  readonly contractId:string;
  readonly settlementAccount:string|undefined;
- constructor(pool:SqlPool,schema='near_agent_work',storage?:EvidenceStorage,actor='demo-client.testnet',readonlyContract='undeployed-escrow.testnet',settlementAccount?:string,verificationMode?:'outlayer-tdx-direct-v1'){
+ constructor(pool:SqlPool,schema='near_agent_work',storage?:EvidenceStorage,actor='demo-client.testnet',readonlyContract='undeployed-escrow.testnet',settlementAccount?:string,verificationMode?:'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3'){
   invariant(/^[a-z][a-z0-9_]{0,62}$/.test(schema),'invalid database schema');
   this.pool=pool;this.schema=schema;this.core=new PostgresStore(pool,schema);this.storage=storage;this.actor=actor;this.contractId=readonlyContract;this.settlementAccount=settlementAccount;this.verificationMode=verificationMode;
  }
@@ -118,7 +119,7 @@ export class PostgresExecutionStore {
   const {config}=await this.load(orderId);
   invariant(config.agreement.contractId===this.contractId,'Wrong escrow deployment');
   const proof=await readFinalTestnetFunding(config.agreement,txHash,config.verificationMode);
-  if(config.verificationMode===TEE_PROFILE)await readFinalTeeOrder(config.agreement);
+  if(isTeeProfile(config.verificationMode))await readFinalTeeOrder(config.agreement,config.verificationMode);
   return this.execute('confirm-funding',orderId,'fund-'+txHash,{txHash},async()=>{
    const row=await this.owned(orderId);
    const update=await this.query("UPDATE work_orders SET status='FUNDED' WHERE id=$1 AND status='APPROVED'",[row.id]);
@@ -128,20 +129,20 @@ export class PostgresExecutionStore {
   });
  }
  async assertTeeReady(orderId:string,taskId:string,revision:number){
-  const {config,state}=await this.load(orderId);if(config.verificationMode!==TEE_PROFILE)return;
+  const {config,state}=await this.load(orderId);if(!isTeeProfile(config.verificationMode))return;
   const row=await this.owned(orderId);invariant(row.status==='FUNDED','Confirmed TEE funding required');
-  const view=await readFinalTeeOrder(config.agreement),dependencies:Record<string,string>={};
+  const view=await readFinalTeeOrder(config.agreement,config.verificationMode),dependencies:Record<string,string>={};
   for(const t of config.agreement.tasks.find(t=>t.id===taskId)?.dependsOn??[]){
    const local=(state as {tasks:Record<string,{artifactHash:string}>}).tasks[t];invariant(local,'Local dependency unavailable');dependencies[t]=local.artifactHash;
   }
-  assertTeeTaskReady(config.agreement,view.order,view.teeState,taskId,revision,dependencies,view.blockTimeNs);
+  assertTeeTaskReady(config.agreement,view.order,view.teeState,taskId,revision,dependencies,view.blockTimeNs,config.verificationMode);
  }
  async teeSettlementPlan(orderId:string){
-  const detail=await this.details(orderId);invariant(detail.config.verificationMode===TEE_PROFILE,'TEE mode required');
+  const detail=await this.details(orderId);invariant(isTeeProfile(detail.config.verificationMode),'TEE mode required');
   invariant(['FUNDED','SUCCESS_CREDITED','FAILED','EXPIRED','REFUNDED'].includes(String(detail.financialStatus)),'Confirmed TEE funding required');
-  const view=await readFinalTeeOrder(detail.config.agreement),artifacts=new Map<string,string>();
+  const view=await readFinalTeeOrder(detail.config.agreement,detail.config.verificationMode),artifacts=new Map<string,string>();
   for(const {report} of detail.reports)artifacts.set(report.taskId+':'+report.artifactVersion,(await this.artifact(orderId,report.taskId,report.artifactVersion)).bytes);
-  return {...planTeeTask(detail.config,view.order,view.teeState,detail.reports,artifacts,view.blockTimeNs),blockHash:view.blockHash,verificationMode:TEE_PROFILE,
+  return {...planTeeTask(detail.config,view.order,view.teeState,detail.reports,artifacts,view.blockTimeNs),blockHash:view.blockHash,verificationMode:detail.config.verificationMode,
    chainTasks:[...view.tasks].map(([id,task])=>({id,result:task.result})),chainStatus:view.order.status,refunded:view.order.refunded};
  }
  async checkSettlement(orderId:string){
@@ -152,7 +153,7 @@ export class PostgresExecutionStore {
    if(result.state==='credited'&&detail.financialStatus==='FUNDED')await this.execute('confirm-credit',orderId,'credit-final',{},async()=>{
     const row=await this.owned(orderId);const updated=await this.query("UPDATE work_orders SET status='SUCCESS_CREDITED' WHERE id=$1 AND status='FUNDED'",[row.id]);
     invariant(updated.rowCount===1,'Order changed before settlement reconciliation');
-    await this.event(orderId,'credit-final','settlement.credited',{blockHash:result.blockHash,amountAtomic:agreement.totalAmountAtomic,verificationMode:TEE_PROFILE});return {blockHash:result.blockHash};
+    await this.event(orderId,'credit-final','settlement.credited',{blockHash:result.blockHash,amountAtomic:agreement.totalAmountAtomic,verificationMode:detail.config.verificationMode});return {blockHash:result.blockHash};
    });
    return result;
   }

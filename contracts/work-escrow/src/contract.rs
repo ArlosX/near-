@@ -443,7 +443,7 @@ impl Escrow {
             "tee_request_prepared",
             json!({"order_id":order_id,"pending":pending}),
         );
-        json!({"profile":tee::PROFILE,"order_id":order_id,"request_id":request_id,"input_data":input_data,"wasm_hash":tee::CODE,"build_target":"wasm32-wasip2","response_format":"Text"})
+        json!({"profile":frozen.profile,"order_id":order_id,"request_id":request_id,"input_data":input_data,"wasm_hash":tee::CODE,"build_target":"wasm32-wasip2","response_format":"Text"})
     }
     /// Permissionless transport of proof bytes. Neither caller, old verifier,
     /// coordinator nor a callback can substitute a verdict for an Intel signature.
@@ -505,7 +505,7 @@ impl Escrow {
             decision != "rejected" || pending.revision == max_revisions,
             "premature final rejection"
         );
-        tee::verify_crypto(&proof, &collateral, tee::MEASUREMENTS);
+        tee::verify_crypto(&proof, &collateral, tee::measurements_for(&frozen.profile));
         // Consume only after every context and cryptographic check passed.
         progress.pending = None;
         if decision == "revision_required" {
@@ -537,7 +537,7 @@ impl Escrow {
         let _ = self.order(&order_id);
         match tee::load(&order_id) {
             Some(frozen) => {
-                json!({"verification_mode":tee::PROFILE,"code_hash":tee::CODE,"collateral_hash":tee::COLLATERAL,"worker_measurements_hash":tee::MEASUREMENTS,"state":frozen})
+                json!({"verification_mode":frozen.profile,"code_hash":tee::CODE,"collateral_hash":tee::COLLATERAL,"worker_measurements_hash":tee::measurements_for(&frozen.profile),"state":frozen})
             }
             None => json!({"verification_mode":"designated-verifier"}),
         }

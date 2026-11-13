@@ -1,3 +1,5 @@
+import {TEE_MEASUREMENTS,isTeeProfile} from '../../shared/src/tee-profiles.ts';
+import type {TeeProfile} from '../../shared/src/tee-profiles.ts';
 import {canonicalJson,hash,hashBytes} from './agreement.ts';
 import {invariant,record} from '../../shared/src/domain.ts';
 import type {Agreement} from '../../shared/src/domain.ts';
@@ -10,19 +12,19 @@ import {readJsonResponse,parseJsonStrict} from '../../shared/src/json.ts';
 export const TEE_PROFILE='outlayer-tdx-direct-v1' as const;
 export const TEE_CODE='bb9fa85b135deb155f187f9ea49df8c907f90b885a88b90459f5bed208122051';
 const COLLATERAL='2e80992e78a9e76e5726db22b7399c553439574e6fe512a3b311ae4c3d559140';
-const MEASUREMENTS='5fccdb6924dbbe7ab09a4ca412e1b264196e44c47c795774326da89a376e45c3';
-export type VerificationMode=typeof TEE_PROFILE;
+
+export type VerificationMode=TeeProfile;
 
 /** Validate both economic identity and immutable TEE profile. A legacy order
  * with the same financial fields must never satisfy this check. */
-export function validateTeeState(agreement:Agreement,chainOrder:unknown,teeState:unknown){
+export function validateTeeState(agreement:Agreement,chainOrder:unknown,teeState:unknown,profile:VerificationMode=TEE_PROFILE){
  const order=record(chainOrder,'TEE escrow order'),tee=record(teeState,'TEE profile');
  invariant(order.order_id===agreement.orderId&&order.agreement_hash===hash(agreement)&&
   order.client===agreement.clientAccountId&&order.verifier===agreement.verifierAccountId&&
   order.principal===agreement.totalAmountAtomic&&order.cutoff_ns===agreement.resultCutoffNs,'TEE economic agreement mismatch');
- invariant(tee.verification_mode===TEE_PROFILE&&tee.code_hash===TEE_CODE&&tee.collateral_hash===COLLATERAL&&tee.worker_measurements_hash===MEASUREMENTS,'TEE profile mismatch; legacy verdicts cannot authorize this order');
+ invariant(isTeeProfile(profile)&&tee.verification_mode===profile&&tee.code_hash===TEE_CODE&&tee.collateral_hash===COLLATERAL&&tee.worker_measurements_hash===TEE_MEASUREMENTS[profile],'TEE profile mismatch; legacy verdicts cannot authorize this order');
  const frozen=record(tee.state,'frozen TEE agreement');
- invariant(frozen.profile===TEE_PROFILE&&frozen.agreement_json===canonicalJson(agreement),'Frozen TEE agreement mismatch');
+ invariant(frozen.profile===profile&&frozen.agreement_json===canonicalJson(agreement),'Frozen TEE agreement mismatch');
  invariant(Array.isArray(order.tasks)&&order.tasks.length===agreement.tasks.length&&Array.isArray(frozen.progress)&&frozen.progress.length===agreement.tasks.length,'TEE task graph mismatch');
  const tasks=new Map<string,Record<string,unknown>>(),progress=new Map<string,Record<string,unknown>>();
  for(const value of order.tasks){
@@ -36,7 +38,7 @@ export function validateTeeState(agreement:Agreement,chainOrder:unknown,teeState
  return {order,tasks,progress};
 }
 
-export async function readFinalTeeOrder(agreement:Agreement){
+export async function readFinalTeeOrder(agreement:Agreement,profile:VerificationMode=TEE_PROFILE){
  const view=await readFinalEscrowOrder(agreement);
  const response=await fetch('https://rpc.testnet.fastnear.com',{method:'POST',headers:{'Content-Type':'application/json'},redirect:'error',signal:AbortSignal.timeout(12000),body:JSON.stringify({jsonrpc:'2.0',id:'tee-view',method:'query',params:{request_type:'call_function',account_id:agreement.contractId,method_name:'get_tee_state',args_base64:Buffer.from(JSON.stringify({order_id:agreement.orderId})).toString('base64'),block_id:view.blockHash}})});
  invariant(response.ok,'Testnet TEE RPC unavailable');
@@ -45,7 +47,7 @@ export async function readFinalTeeOrder(agreement:Agreement){
  const result=record(payload.result,'TEE view');
  invariant(result.block_hash===view.blockHash&&Array.isArray(result.result)&&result.result.length<=32768,'TEE view block mismatch');
  const teeState=parseJsonStrict(Buffer.from(result.result).toString('utf8'));
- return {...view,teeState,...validateTeeState(agreement,view.order,teeState)};
+ return {...view,teeState,...validateTeeState(agreement,view.order,teeState,profile)};
 }
 
 /** Local consistency check, not a substitute for the contract's Intel quote check. */
@@ -54,8 +56,8 @@ export function teeVerificationSummary(envelope:ReportEnvelope){
  return {decision:r.decision,checks:r.checks.map(c=>({criterionId:c.criterionId,checker:c.checker,passed:c.passed})),orderId:r.orderId,taskId:r.taskId,agreementHash:r.agreementHash,policyHash:r.policyHash,sourceManifestHash:r.sourceManifestHash,artifactHash:r.artifactHash,artifactVersion:r.artifactVersion};
 }
 
-export function assertTeeTaskReady(agreement:Agreement,chainOrder:unknown,teeState:unknown,taskId:string,revision:number,dependencies:Record<string,string>,blockTimeNs:bigint){
- const {order,tasks,progress}=validateTeeState(agreement,chainOrder,teeState);
+export function assertTeeTaskReady(agreement:Agreement,chainOrder:unknown,teeState:unknown,taskId:string,revision:number,dependencies:Record<string,string>,blockTimeNs:bigint,profile:VerificationMode=TEE_PROFILE){
+ const {order,tasks,progress}=validateTeeState(agreement,chainOrder,teeState,profile);
  invariant(order.status==='Open'&&order.refunded===false&&blockTimeNs<BigInt(agreement.resultCutoffNs),'TEE order is terminal or expired');
  const task=agreement.tasks.find(t=>t.id===taskId);invariant(task,'Unknown TEE task');
  invariant(tasks.get(taskId)!.result===null&&progress.get(taskId)!.pending===null&&progress.get(taskId)!.revision===revision,'TEE task is pending, final, or awaiting its on-chain revision');
@@ -65,7 +67,7 @@ export function assertTeeTaskReady(agreement:Agreement,chainOrder:unknown,teeSta
 /** Rebuild pending input from immutable evidence and the chain-owned request/time.
  * A crash/reload must not generate a second, different execution commitment. */
 export function planTeeTask(config:DemoConfig,chainOrder:unknown,teeState:unknown,reports:ReportEnvelope[],artifacts:Map<string,string>,blockTimeNs:bigint){
- const a=config.agreement,{order,tasks,progress}=validateTeeState(a,chainOrder,teeState);
+ const a=config.agreement,{order,tasks,progress}=validateTeeState(a,chainOrder,teeState,config.verificationMode);
  if(['Expired','Failed'].includes(String(order.status)))return {state:order.refunded===true?'refunded':'refund',intent:null};
  const accepted=new Set<string>();
  for(const task of a.tasks){

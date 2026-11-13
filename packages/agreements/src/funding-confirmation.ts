@@ -4,7 +4,7 @@ import type {Agreement} from '../../shared/src/domain.ts';
 import {readJsonResponse} from '../../shared/src/json.ts';
 
 // Accept only a response obtained by the server from its Testnet RPC.
-export function verifyFundingOutcome(agreement:Agreement,txHash:string,outcome:unknown,verificationMode?:'outlayer-tdx-direct-v1'){
+export function verifyFundingOutcome(agreement:Agreement,txHash:string,outcome:unknown,verificationMode?:'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3'){
  const intent=fundingIntent(agreement,verificationMode);
  invariant(/^[1-9A-HJ-NP-Za-km-z]{43,44}$/.test(txHash),'Invalid transaction hash');
  invariant(intent.receiverId!=='undeployed-escrow.testnet','Escrow deployment required');
@@ -24,7 +24,7 @@ export function verifyFundingOutcome(agreement:Agreement,txHash:string,outcome:u
  return {txHash,orderId:agreement.orderId,agreementHash:hash(agreement),depositAtomic:intent.depositAtomic};
 }
 
-export async function readFinalTestnetFunding(agreement:Agreement,txHash:string,verificationMode?:'outlayer-tdx-direct-v1'){
+export async function readFinalTestnetFunding(agreement:Agreement,txHash:string,verificationMode?:'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3'){
  invariant(/^[1-9A-HJ-NP-Za-km-z]{43,44}$/.test(txHash),'Invalid transaction hash');
  invariant(agreement.network==='testnet'&&agreement.contractId!=='undeployed-escrow.testnet','Testnet escrow deployment required');
  const response=await fetch('https://rpc.testnet.fastnear.com',{

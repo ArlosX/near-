@@ -2,6 +2,10 @@
 name="tee-proof-bench"
 version="0.1.0"
 edition="2024"
+[features]
+default=[]
+tee-worker-v2=[]
+tee-worker-v3=[]
 [lib]
 crate-type=["cdylib"]
 [dependencies]

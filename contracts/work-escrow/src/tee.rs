@@ -6,10 +6,33 @@ use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::serde_json::{Value, json};
 use near_sdk::{env, require};
 
+#[cfg(all(feature = "tee-worker-v2", feature = "tee-worker-v3"))]
+compile_error!("Select only one worker profile feature");
+#[cfg(not(any(feature = "tee-worker-v2", feature = "tee-worker-v3")))]
 pub const PROFILE: &str = "outlayer-tdx-direct-v1";
+#[cfg(feature = "tee-worker-v2")]
+pub const PROFILE: &str = "outlayer-tdx-direct-v2";
+#[cfg(feature = "tee-worker-v3")]
+pub const PROFILE: &str = "outlayer-tdx-direct-v3";
 pub const CODE: &str = "bb9fa85b135deb155f187f9ea49df8c907f90b885a88b90459f5bed208122051";
 pub const COLLATERAL: &str = "2e80992e78a9e76e5726db22b7399c553439574e6fe512a3b311ae4c3d559140";
+#[cfg(not(any(feature = "tee-worker-v2", feature = "tee-worker-v3")))]
 pub const MEASUREMENTS: &str = "5fccdb6924dbbe7ab09a4ca412e1b264196e44c47c795774326da89a376e45c3";
+#[cfg(feature = "tee-worker-v2")]
+pub const MEASUREMENTS: &str = "d09433697b6795af07f09ba73ec15b4af7e01da08b60e28a5d496a07573a6ceb";
+#[cfg(feature = "tee-worker-v3")]
+pub const MEASUREMENTS: &str = "ab0bbc0d27392a4c2a68968141b1ed38cae3e6a88a369d90552622d55b5e732d";
+pub fn measurements_for(profile: &str) -> &'static str {
+    #[cfg(feature = "tee-worker-v3")]
+    { match profile {
+        "outlayer-tdx-direct-v1" => "5fccdb6924dbbe7ab09a4ca412e1b264196e44c47c795774326da89a376e45c3",
+        "outlayer-tdx-direct-v2" => "d09433697b6795af07f09ba73ec15b4af7e01da08b60e28a5d496a07573a6ceb",
+        "outlayer-tdx-direct-v3" => MEASUREMENTS,
+        _ => env::panic_str("unknown frozen worker profile"),
+    } }
+    #[cfg(not(feature = "tee-worker-v3"))]
+    { require!(profile == PROFILE, "wrong frozen worker profile"); MEASUREMENTS }
+}
 pub const PROFILE_VALID_UNTIL_NS: u64 = 1796688919000000000;
 pub const MAX_INPUT: usize = 65536;
 pub const MAX_OUTPUT: usize = 16384;
@@ -199,10 +222,14 @@ pub fn verify_crypto(proof: &Proof, collateral: &str, measurements_hash: &str) {
         td.rt_mr3.as_slice(),
     ]
     .concat();
-    require!(
-        raw_hash(&measurements) == measurements_hash,
-        "worker measurements mismatch"
-    );
+    let measured = raw_hash(&measurements);
+    #[cfg(feature = "tee-worker-v3")]
+    let matches = if measurements_hash == MEASUREMENTS {
+        [measurements_for("outlayer-tdx-direct-v1"), measurements_for("outlayer-tdx-direct-v2")].contains(&measured.as_str())
+    } else { measured == measurements_hash };
+    #[cfg(not(feature = "tee-worker-v3"))]
+    let matches = measured == measurements_hash;
+    require!(matches, "worker measurements mismatch");
     let mut preimage = Vec::new();
     preimage.extend_from_slice(b"execute");
     preimage.extend_from_slice(&proof.task_id.to_le_bytes());

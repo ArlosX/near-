@@ -9,9 +9,9 @@ private environment files out of the recording.
 | 0:00–0:15 | Two-task workflow | “A spending limit does not tell you whether an agent finished the work. This agreement pays only after both dependent tasks are accepted.” |
 | 0:15–0:35 | Agreement, fixed shares and locked comparison | “The buyer freezes the rules. Comparison must consume the exact accepted extraction. Passing one task alone earns no partial payment.” |
 | 0:35–1:00 | Wrong total, check reason, corrected output | “This arithmetic error fails a deterministic check. The corrected version has a new artifact hash.” Label fixture/sample visibly. |
-| 1:00–1:25 | New-profile extraction acceptance receipt | “This separate real Gemini output ran through the pinned judge in OutLayer TEE. The escrow itself verified the Intel proof and accepted these exact bytes.” |
-| 1:25–1:45 | Complete new-profile allocation and withdrawal | “Recorded Gemini outputs were replayed; the new TEE executions, both contract acceptances and full withdrawal were real.” Open the new withdrawal receipt, not the historical one. |
-| 1:45–2:05 | Confirmed new-profile expiry/refund | “If the whole flow does not finish, there is no partial worker entitlement. This receipt returns the full principal; gas and external execution fees are separate.” |
+| 1:00–1:25 | Current v3 extraction acceptance receipt | “This separate real Gemini output ran through the pinned judge in OutLayer TEE. The escrow itself verified the Intel proof and accepted these exact bytes.” |
+| 1:25–1:45 | Current v3 allocation and withdrawal | “Two fresh Gemini calls produced these outputs. Both TEE executions, direct contract acceptances and the full withdrawal were real.” Open the new withdrawal receipt, not the historical one. |
+| 1:45–2:05 | Separate v2-profile expiry/refund | “If the whole flow does not finish, there is no partial worker entitlement. This receipt returns the full principal; gas and external execution fees are separate.” |
 | 2:05–2:20 | Evidence and repository | “Run the fixture demo without keys. Evidence exposes the rules, reasons, hashes and receipts.” |
 
 ## Draft X post — owner publishes

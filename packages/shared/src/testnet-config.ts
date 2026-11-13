@@ -11,7 +11,7 @@ export function testnetEscrowConfig(env: NodeJS.ProcessEnv) {
     invariant(verifier !== contractId, 'Escrow cannot be its own verifier');
   }
   const verificationMode=env.NEAR_VERIFICATION_MODE?.trim() || undefined;
-  invariant(verificationMode===undefined || verificationMode==='outlayer-tdx-direct-v1','Unsupported NEAR verification mode');
+  invariant(verificationMode===undefined || (verificationMode==='outlayer-tdx-direct-v1'||verificationMode==='outlayer-tdx-direct-v2'||verificationMode==='outlayer-tdx-direct-v3'),'Unsupported NEAR verification mode');
   invariant(!verificationMode || !!verifier,'TEE mode requires an explicit verifier');
-  return {contractId, verifier, verificationMode:verificationMode as 'outlayer-tdx-direct-v1'|undefined};
+  return {contractId, verifier, verificationMode:verificationMode as 'outlayer-tdx-direct-v1'|'outlayer-tdx-direct-v2'|'outlayer-tdx-direct-v3'|undefined};
 }

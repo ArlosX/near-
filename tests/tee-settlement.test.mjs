@@ -6,6 +6,17 @@ import {createDemoConfig,artifactTemplate} from '../packages/orchestration/src/d
 import {verifySubmission} from '../packages/verification/src/report.ts';
 import {TEE_PROFILE,TEE_CODE,validateTeeState,assertTeeTaskReady,planTeeTask,teeVerificationSummary} from '../packages/agreements/src/tee-settlement.ts';
 const now=1794480000000000000n;
+
+test('v2 worker is an explicit separate profile; v1 trust cannot silently migrate',()=>{
+ const {config,a,order,tee}=fixture();
+ tee.verification_mode='outlayer-tdx-direct-v2';tee.state.profile='outlayer-tdx-direct-v2';
+ tee.worker_measurements_hash='d09433697b6795af07f09ba73ec15b4af7e01da08b60e28a5d496a07573a6ceb';
+ assert.throws(()=>validateTeeState(a,order,tee),/profile mismatch/);
+ assert.doesNotThrow(()=>validateTeeState(a,order,tee,'outlayer-tdx-direct-v2'));
+ config.verificationMode='outlayer-tdx-direct-v2';assert.equal(planTeeTask(config,order,tee,[],new Map(),now).state,'model');
+ tee.worker_measurements_hash='5fccdb6924dbbe7ab09a4ca412e1b264196e44c47c795774326da89a376e45c3';
+ assert.throws(()=>validateTeeState(a,order,tee,'outlayer-tdx-direct-v2'),/profile mismatch/);
+});
 function fixture(){
  const config=createDemoConfig('tee-ui-test',now,'2500',3600,'owner.testnet','escrow.testnet','owner.testnet');config.verificationMode=TEE_PROFILE;
  const a=config.agreement;
@@ -65,4 +76,12 @@ test('expired TEE orders expose refund actions without fabricating success or a 
  assert.equal(planTeeTask(config,order,tee,[],artifacts,BigInt(config.agreement.resultCutoffNs)).state,'expire');
  order.status='Expired';assert.equal(planTeeTask(config,order,tee,[],artifacts,now).state,'refund');
  order.refunded=true;assert.equal(planTeeTask(config,order,tee,[],artifacts,now).state,'refunded');
+});
+
+test('two-worker v3 commitment is distinct and cannot be substituted into a v2 agreement',()=>{
+ const {config,a,order,tee}=fixture();tee.verification_mode='outlayer-tdx-direct-v3';tee.state.profile='outlayer-tdx-direct-v3';tee.worker_measurements_hash='ab0bbc0d27392a4c2a68968141b1ed38cae3e6a88a369d90552622d55b5e732d';
+ assert.throws(()=>validateTeeState(a,order,tee,'outlayer-tdx-direct-v2'),/profile mismatch/);
+ assert.doesNotThrow(()=>validateTeeState(a,order,tee,'outlayer-tdx-direct-v3'));
+ config.verificationMode='outlayer-tdx-direct-v3';assert.equal(planTeeTask(config,order,tee,[],new Map(),now).state,'model');
+ tee.worker_measurements_hash='d09433697b6795af07f09ba73ec15b4af7e01da08b60e28a5d496a07573a6ceb';assert.throws(()=>validateTeeState(a,order,tee,'outlayer-tdx-direct-v3'),/profile mismatch/);
 });
