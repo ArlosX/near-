@@ -396,8 +396,8 @@ action(async()=>{
  svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
  svg.classList.add('live-ribbons');
  svg.innerHTML=`<defs>
- <linearGradient id="ribbon-body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#39bee9" stop-opacity=".20"/><stop offset=".45" stop-color="#14769c" stop-opacity=".09"/><stop offset="1" stop-color="#063148" stop-opacity="0"/></linearGradient>
- <linearGradient id="ribbon-edge"><stop stop-color="#8bd8f8" stop-opacity=".05"/><stop offset=".18" stop-color="#b9edff" stop-opacity=".75"/><stop offset=".48" stop-color="#347fa5" stop-opacity=".20"/><stop offset=".82" stop-color="#b9edff" stop-opacity=".7"/><stop offset="1" stop-color="#8bd8f8" stop-opacity=".08"/></linearGradient>
+ <linearGradient id="ribbon-body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--ribbon-body-high, #39bee9)" stop-opacity=".20"/><stop offset=".45" stop-color="var(--ribbon-body-mid, #14769c)" stop-opacity=".09"/><stop offset="1" stop-color="var(--ribbon-body-low, #063148)" stop-opacity="0"/></linearGradient>
+ <linearGradient id="ribbon-edge"><stop stop-color="var(--ribbon-edge-low, #8bd8f8)" stop-opacity=".05"/><stop offset=".18" stop-color="var(--ribbon-edge-high, #b9edff)" stop-opacity=".75"/><stop offset=".48" stop-color="var(--ribbon-edge-mid, #347fa5)" stop-opacity=".20"/><stop offset=".82" stop-color="var(--ribbon-edge-high, #b9edff)" stop-opacity=".7"/><stop offset="1" stop-color="var(--ribbon-edge-low, #8bd8f8)" stop-opacity=".08"/></linearGradient>
  <filter id="ribbon-glow" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="10"/></filter>
  </defs>`;
  function curve(y,amplitude,phase){
@@ -417,7 +417,7 @@ action(async()=>{
   const curves=Array.from({length:5},(_,i)=>curve(y,amplitude,phase+(i%4)*Math.PI/2));
   const bodies=curves.map(d=>d+' L 1860 '+(y+230)+' C 1000 '+(y+210)+', 500 '+(y+180)+', -240 '+(y+150)+' Z');
   animatedPath(bodies,duration,{fill:'url(#ribbon-body)',opacity:String(opacity)});
-  animatedPath(curves,duration,{fill:'none',stroke:'#46c7f2','stroke-width':'12',filter:'url(#ribbon-glow)',opacity:String(opacity*.24)});
+  animatedPath(curves,duration,{fill:'none',stroke:'var(--ribbon-glow-color, #46c7f2)','stroke-width':'12',filter:'url(#ribbon-glow)',opacity:String(opacity*.24)});
   animatedPath(curves,duration,{fill:'none',stroke:'url(#ribbon-edge)','stroke-width':'1.2',opacity:String(opacity)});
  }
  document.body.prepend(svg);

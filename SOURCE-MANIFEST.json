@@ -1,9 +1,9 @@
 {
-  "createdAt": "2026-11-13T16:16:36.086Z",
+  "createdAt": "2026-11-13T16:31:10.903Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
-      "sha256": "1482be19e8e7621a40dda2f74e970d207c9c167d438555d24c617799cccee35e"
+      "sha256": "47c4476a771ed172058d217c8fad7efe5c8c2871263dae62560c097087643991"
     },
     {
       "path": "apps/test-console/public/appearance.js",
@@ -11,7 +11,7 @@
     },
     {
       "path": "apps/test-console/public/demo.html",
-      "sha256": "95870148a9da5ef2f91292da111f20239a0f35a55ee19680459ee9dfdf842c99"
+      "sha256": "48c4b313c26c985ed2144b7241e6c7ead2495c73794a8ff60d3f9612f9c66ddc"
     },
     {
       "path": "apps/test-console/public/favicon.svg",
@@ -27,7 +27,7 @@
     },
     {
       "path": "apps/test-console/public/index.html",
-      "sha256": "70b0f65208ba2b5fa17f813691d8175c308b905976edcebf080e0bf184c2c571"
+      "sha256": "871ded796848b494b8e04123b4ab739d28c9343ff127cc4c1fd04d9c3091500e"
     },
     {
       "path": "apps/test-console/public/prooflane-mark.svg",
@@ -43,7 +43,7 @@
     },
     {
       "path": "apps/test-console/public/style.css",
-      "sha256": "0e12cf6ef6efba54e2d41d54d5f00c80232ecc0b2a16ebfd7c7d851e0aa357c0"
+      "sha256": "c90db21550c4a4848e11f4441929b3922081354ceb5422fbc19b16a7a2df91bb"
     },
     {
       "path": "apps/test-console/public/wallet-connector.js",
