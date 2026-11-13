@@ -1,5 +1,7 @@
 # Stage 5 — fresh Testnet deployment
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 Status: COMPLETE — owner account creation, top-up, deployment, initialization, admission, code hash and live reserve gates passed. No deployment/funding transaction has been sent by the agent. Application TEE-mode wiring and a fresh funded workflow remain stage 6.
 
 ## Confirmed account

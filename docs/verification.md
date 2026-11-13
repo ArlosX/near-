@@ -1,5 +1,7 @@
 # Policy-bound deterministic verification
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 ## Entry point
 
 packages/verification/src/index.ts exports verifySubmission. It validates the approved agreement hash, task policy hash, exact policy criteria, frozen source manifest and canonical worker artifact before producing a report. It runs only registered checker versions. No LLM-generated code is executed.

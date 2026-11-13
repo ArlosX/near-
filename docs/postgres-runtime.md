@@ -1,5 +1,7 @@
 # PostgreSQL execution runtime — stage 1
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 The loopback console can now persist fixture workflows using PostgreSQL/Supabase.
 SQLite remains available for isolated regression tests. Existing SQLite records are
 not silently copied into Supabase.

@@ -1,5 +1,7 @@
 # NEAR AI Cloud model connection
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 Status: implemented adapter and local asynchronous runner. Validated using scripted provider responses plus an actual local HTTP provider double. No request was sent to NEAR AI Cloud, and no paid inference was performed. Synthetic procurement documents remain the demo input. No new runtime dependency was introduced.
 
 ## Configure locally

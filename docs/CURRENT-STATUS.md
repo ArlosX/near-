@@ -32,6 +32,6 @@ The known exposed old arlos.testnet key was revoked in CsBoyyfftFGK1rzL1k4eV659R
 
 ## Remaining owner gates
 
-Final short UI acceptance, video recording, public X demo post, contact/mainnet payout details and approval of the exact submission. Source publication and final clean-copy results are recorded in the 13 November release validation report. Earlier dated reports are historical snapshots.
+Owner login/workflow UI acceptance has passed; final visual preference remains owner-reviewed. Remaining deliverables are video recording, public X demo post, contact/mainnet payout details and approval of the exact submission. Source publication and final clean-copy results are recorded in the 13 November release validation report. Earlier dated reports are historical snapshots.
 
 No production hosting, independent audit, arbitrary source truth, TEE-attested generation, independent buyer/worker custody in the single-owner demo, or competition percentile is claimed. Deployment-key authority and OutLayer governance remain trust boundaries.

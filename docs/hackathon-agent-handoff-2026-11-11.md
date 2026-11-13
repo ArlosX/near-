@@ -1,8 +1,10 @@
 # Prooflane
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 ## Evaluation handoff — 11 November 2026
 
-Project name in the repository and UI is **Prooflane / Prooflane**. This report describes the current implementation and the evidence available for review. It supersedes older planning documents for the status summarized here. Competition rankings, competitor counts and current event rules require separate research.
+Project name in the repository and UI is **Prooflane (formerly NEAR Agent Work)**. This report describes the current implementation and the evidence available for review. It supersedes older planning documents for the status summarized here. Competition rankings, competitor counts and current event rules require separate research.
 
 ## 1. Product and user problem
 

@@ -1,5 +1,7 @@
 # Competitive improvements — implementation status
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 ## Implemented
 
 - Owner-scoped evidence download at `/api/orders/:id/evidence-package`, available through Evidence.

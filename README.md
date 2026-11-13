@@ -63,6 +63,14 @@ Profile v3 freezes a two-entry allowlist of independently reviewed worker measur
 
 See the [13 November validation and live receipts](docs/release-validation-2026-11-13.md). Build the current escrow with `cargo build --locked --manifest-path contracts/work-escrow/Cargo.toml --target wasm32-unknown-unknown --release --features tee-worker-v3` using the repository target flags. Default builds preserve historical v1. Never deploy with initialization on an existing escrow.
 
+## Fixed TEE artifact and live validity window
+
+The immutable judge download is [judge.wasm at commit a25b194](https://raw.githubusercontent.com/ArlosX/near-/a25b1940d6560ac86daae4c8eceb874133ba7844/judge.wasm). Its SHA-256 is `bb9fa85b135deb155f187f9ea49df8c907f90b885a88b90459f5bed208122051`; this is the judge hash, distinct from the escrow contract hash.
+
+The current escrow enforces `result cutoff < 2026-12-08 00:15:19 UTC` (`1796688919000000000` ns). This is a hard upper bound, not a promise that any quote/provider remains valid until that instant: quote, collateral/TCB and worker checks must independently pass. Do not reuse this profile for a live order beyond that bound. The no-key fixture demo and historical evidence remain inspectable after it. Updating a live trust profile requires separate review, tests and owner approval; this audit does not modify it.
+
+See the [final pre-release audit](docs/final-pre-release-audit-2026-11-13.md) for exact scope and remaining limits.
+
 ## Live mode and development
 
 The optional PostgreSQL console is `npm run dev:console:postgres` on port 4318. It requires private server configuration, migrations and Intear wallet sign-in with an Ed25519 Full Access Testnet key. ML-DSA account keys are not supported by this login verifier. Disconnect signs out of this workspace; orders remain isolated by their original owner account. Live model calls are explicit; Gemini, NVIDIA and NEAR AI adapters exist. Provider names/access can change; judging the fixture demo must never require provider availability. No silent provider substitution occurs. Recorded outputs must be labeled replay, not live inference.

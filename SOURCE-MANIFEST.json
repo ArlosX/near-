@@ -1,9 +1,9 @@
 {
-  "createdAt": "2026-11-13T16:36:42.205Z",
+  "createdAt": "2026-11-13T17:11:38.414Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
-      "sha256": "47c4476a771ed172058d217c8fad7efe5c8c2871263dae62560c097087643991"
+      "sha256": "355d6a13352b415c964db6ab91667a19ff96f1d435dddc73a563dd82a5e876aa"
     },
     {
       "path": "apps/test-console/public/appearance.js",
@@ -11,7 +11,7 @@
     },
     {
       "path": "apps/test-console/public/demo.html",
-      "sha256": "f1a1a7d6be87cc216a2a5a1b04e8448b0395a3e1c974d88ee457ca25ac2deaec"
+      "sha256": "fc7acb2a66573bdc10e4c438ea145ad9c4e571caf3ab3b58cd7e84031c0bc209"
     },
     {
       "path": "apps/test-console/public/favicon.svg",
@@ -27,7 +27,7 @@
     },
     {
       "path": "apps/test-console/public/index.html",
-      "sha256": "e081edf3d11b13d5e53fa75f607fbf0afebd340f5cd33dbf7019080cd95d7602"
+      "sha256": "f031b805a265cf6284d159f8412531b3b8348e24fb6f21496a83a3ef80af087d"
     },
     {
       "path": "apps/test-console/public/prooflane-mark.svg",
@@ -135,11 +135,11 @@
     },
     {
       "path": "docs/competitive-improvements-2026-11-09.md",
-      "sha256": "f7ec95a60798b740f6e6d2b306307c819a00d97262cd04b0f639a43334cb1a53"
+      "sha256": "b79bad938ef7362ed00b99aa5edb4c1a8f0dbd0dc4306200f74c614588c426d7"
     },
     {
       "path": "docs/CURRENT-STATUS.md",
-      "sha256": "23aebd21aab49446c7980e7fd7d95276b900d0428930362e6881c6a865076ef9"
+      "sha256": "4364717396cda04272a118f654a35d64ec6651c2b011ab8790b16e1792b18120"
     },
     {
       "path": "docs/decisions.md",
@@ -158,6 +158,10 @@
       "sha256": "1ee3716d23b3a56abf4e9686e13fa8bdc7ccd2a33db13519c43e330ad3693eeb"
     },
     {
+      "path": "docs/final-pre-release-audit-2026-11-13.md",
+      "sha256": "0314f222d72d730e0e138b73eefa3fd3256cc7b9d0e33900ec72e85c8e62567b"
+    },
+    {
       "path": "docs/finalization-2026-11-09.md",
       "sha256": "7cc34fc4c58be8bac52974832b0ed2382805ae2a592d004b34bb65ee82d4a74a"
     },
@@ -171,7 +175,7 @@
     },
     {
       "path": "docs/hackathon-agent-handoff-2026-11-11.md",
-      "sha256": "cde5e9c7a80ee141e9d088af697a3e0aaef63bc0ab998a2b5736f9a15f81074d"
+      "sha256": "1aba3a87242b1b882953707f8641281a08f4359c92ca4e9d1b6a84649df7963a"
     },
     {
       "path": "docs/ice-blue-graphite-theme.md",
@@ -187,7 +191,7 @@
     },
     {
       "path": "docs/model-integration.md",
-      "sha256": "c35cd106bda4a8bd4cd2aab7931cc6414f383c44daabcb9e6c5f61d9bc89f0fe"
+      "sha256": "170b85a212bbb6d20af1d66218cd9c3c4bb84bf67f65f728e1043fafd27b2874"
     },
     {
       "path": "docs/NEAR-Agent-Work-Complete-Project-Report-2026-11-12.md",
@@ -207,11 +211,15 @@
     },
     {
       "path": "docs/postgres-runtime.md",
-      "sha256": "3e90e37e23b3a581675f56aac53899a4fad0c5dbdbf19fc4af321cfe4c944c66"
+      "sha256": "094a64a671577090194ba4749ed81cc898c5e7b1a17918244fb2b41777f7bf21"
     },
     {
       "path": "docs/private-evidence.md",
       "sha256": "0de346afc5cb4163ebf6ef53c5606ac83a1c05f325f17ca39c72187f204b67bd"
+    },
+    {
+      "path": "docs/Prooflane-Final-Build-Report-2026-11-13.fa.md",
+      "sha256": "c1aaa0f12cfa03f0a376dc2b77f42a15b8ff4839d7ccfd6e3f8882960805bf7e"
     },
     {
       "path": "docs/quick-security-scan-2026-11-11.md",
@@ -271,11 +279,11 @@
     },
     {
       "path": "docs/testnet-deployment-stage5.md",
-      "sha256": "bc57b45ab76bfcdc5b3a8e77fca210f4a587eabfa8143622d4677786650fc1ad"
+      "sha256": "a1dd8b4bba9bb35d5f4caa81e9d4d98890816125b3d8945db98fe317d8f95a6e"
     },
     {
       "path": "docs/testnet-success-stage6.md",
-      "sha256": "b08a031f1be8ca14b1a0e04bba5f0a14810d54b7aabea4cf4a5e8f363aa086db"
+      "sha256": "39ed9ce49a74bc555ab1ede02c0a16cb19359687c56b4e8523069dba0bdeb381"
     },
     {
       "path": "docs/validation.md",
@@ -283,7 +291,7 @@
     },
     {
       "path": "docs/verification.md",
-      "sha256": "07dfe86077c825c5375d3ba7dfa947feef618e5f77861616304f09b3f732a11e"
+      "sha256": "098d57d4f32ba853f246daa39fceef73be4809790fd4ad7115afdff6a85eb398"
     },
     {
       "path": "docs/worker-profile-v2.md",
@@ -923,7 +931,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "adf46a6389ed416b89d2dac1001a3c57cebbc0c00e8cd81ec76fead2127915b9"
+      "sha256": "1d00c23910cf606d0342de8f7dedf7d06436a642febd87ab2044c2c8c45552ce"
     },
     {
       "path": "package.json",

@@ -1,5 +1,7 @@
 # Stage 6 — funded success workflow
 
+> Historical milestone snapshot — this document preserves the implementation stage named below, not the final release status. For the completed v3 live workflow and current limits, use [CURRENT-STATUS.md](CURRENT-STATUS.md) and the [final pre-release audit](final-pre-release-audit-2026-11-13.md). Do not interpret old “pending” statements as current release gates.
+
 Status: in progress, 12 November 2026. The owner must sign each transaction.
 
 ## Implemented and checked
