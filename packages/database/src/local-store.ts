@@ -95,13 +95,16 @@ export class LocalStore {
    const cached=this.db.prepare('SELECT fingerprint,result_json FROM local_requests WHERE order_id=? AND request_id=?').get(orderId,requestId);
    if(cached) {
     invariant(cached.fingerprint===fingerprint,'idempotency key reused for different payload');
-    this.journal(transactionId,orderId,operation,'REPLAYED','No workflow mutations');this.db.exec('COMMIT');
+    this.journal(transactionId,orderId,operation,'REPLAYED','No workflow mutations');this.leaseGuard?.();this.db.exec('COMMIT');
     return {value:JSON.parse(String(cached.result_json)) as T,replayed:true,transactionId};
    }
    const value=fn();
    this.db.prepare('INSERT INTO local_requests VALUES(?,?,?,?)').run(orderId,requestId,fingerprint,canonicalJson(value));
    this.beforeCommit?.();
    this.journal(transactionId,orderId,operation,'COMMITTED','State, artifacts, reports, events and idempotency result committed atomically');
+   // Expiry can occur during verification or synchronous I/O. Fence again at
+   // the commit boundary, matching PostgreSQL's post-operation lease check.
+   this.leaseGuard?.();
    this.db.exec('COMMIT');return {value,replayed:false,transactionId};
   } catch(error) {
    this.db.exec('ROLLBACK');

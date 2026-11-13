@@ -1,4 +1,8 @@
-# Current release status — 13 November 2026
+# Current release status — 14 November 2026
+
+## Latest adversarial challenge
+
+The [14 November security challenge](security-challenge-2026-11-14.md) fixed two bounded issues: contradictory model-response metadata and SQLite lease expiry at commit. Application checks (126), local PostgreSQL (22), native Rust (14), v3 Sandbox (17), WASI parity vectors (25) and fixture smoke passed. Production contract/judge code and live data were unchanged. These are local engineering checks, not an independent security certification.
 
 ## Complete live success
 

@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-11-13T17:11:38.414Z",
+  "createdAt": "2026-11-13T21:51:59.015Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
@@ -122,6 +122,10 @@
       "sha256": "578a0a75a025a01723776e0378a027faeb0e3ac9b783e7e9154970384a95f606"
     },
     {
+      "path": "contracts/work-escrow/tests/adversarial_sequences.rs",
+      "sha256": "ce4c5b324d745e5e974a34900eb33f421bbcc059a2e5e040be6cb990e47fb661"
+    },
+    {
       "path": "docs/agent-security-probes-2026-11-11.md",
       "sha256": "21a9c5df41cfaa47866f090ea8aeb29cd87f4e97e708874f2776956d4bb918f8"
     },
@@ -139,7 +143,7 @@
     },
     {
       "path": "docs/CURRENT-STATUS.md",
-      "sha256": "4364717396cda04272a118f654a35d64ec6651c2b011ab8790b16e1792b18120"
+      "sha256": "94fc904318af5eb57591d34c54a4a209f933bbf96e30095d737395a728b9ca6a"
     },
     {
       "path": "docs/decisions.md",
@@ -242,6 +246,10 @@
       "sha256": "f161ee9d4ed1fb649a34213563e479ccfbb42b07d3b3f82c628ad097f9a405c9"
     },
     {
+      "path": "docs/security-challenge-2026-11-14.md",
+      "sha256": "f2d3d6b188698c0db3db6f39becb986e6c533f74d05bd877922da5e408367d16"
+    },
+    {
       "path": "docs/security-hardening-round-2.md",
       "sha256": "6f05b2f0e00eca5433ce684d48d118624fe0ea463d054fd73a4888cfb40ff3b6"
     },
@@ -339,7 +347,7 @@
     },
     {
       "path": "packages/database/src/local-store.ts",
-      "sha256": "ba28457774f4ec85b2ae7fb67f8f9a7f53b796727c22196eed8a1cda9e0bca56"
+      "sha256": "6fa2c7fcc9748b13ce6a3740d00d62b73e81cb315dca0984aa37208475a5ab0f"
     },
     {
       "path": "packages/database/src/postgres-execution-store.ts",
@@ -371,7 +379,7 @@
     },
     {
       "path": "packages/model/src/near-ai.ts",
-      "sha256": "e19ccb198c4c80f8570336319fd7f47f7e72babaf67893e770fd0fd4bcc15489"
+      "sha256": "ed8c032f590b7740b6efca9cb9deeb0249f31ab7a5da1c9c44e93d4e79d04c67"
     },
     {
       "path": "packages/model/src/recorded-replay.ts",
@@ -876,6 +884,10 @@
     {
       "path": "tests/sandbox/tee-worker-v3.mjs",
       "sha256": "b5f6436934319e9ace8e5c821922844196ec2d160ac8ac5ccc70281b5a23b73a"
+    },
+    {
+      "path": "tests/security-challenge.test.mjs",
+      "sha256": "90dfa768be8ac552c5913155a9730614beaf7a4f0c14c2fc32bf274af0bb8ee2"
     },
     {
       "path": "tests/security-layers.test.mjs",

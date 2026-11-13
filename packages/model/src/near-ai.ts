@@ -67,8 +67,13 @@ export class NearAiAdapter implements ModelAdapter {
    data=response.headers.get('content-type')?.includes('text/event-stream')
     ? parseCompletionStream(text) : record(parseJsonStrict(text),'model response');
   }catch{throw new Error('invalid model response JSON');}
+  invariant(data.error===undefined||data.error===null,'model returned an error envelope');
   invariant(Array.isArray(data.choices)&&data.choices.length===1,'model must return one choice');
   const choice=record(data.choices[0],'choice'),message=record(choice.message,'message');
+  // Text workers never request tools. Reject contradictory provider metadata,
+  // consistently with streaming, rather than accepting its accompanying text.
+  invariant(message.tool_calls==null&&message.function_call==null,'model tool calls are unsupported');
+  invariant(message.refusal==null||message.refusal==='','model refused the request');
   invariant(typeof message.content==='string'&&message.content.length>0,'model returned no text');
   invariant(choice.finish_reason==='stop','model response incomplete or refused');
   const usage=data.usage??null;canonicalJson(usage);
@@ -92,6 +97,7 @@ function parseCompletionStream(text:string):Record<string,unknown>{
   invariant(choice.index===0&&finish===null,'invalid model stream sequence');
   const delta=record(choice.delta,'model delta');
   invariant(!delta.tool_calls&&!delta.function_call,'model tool calls are unsupported');
+  invariant(delta.refusal==null||delta.refusal==='','model refused the request');
   if(delta.content!==undefined&&delta.content!==null){invariant(typeof delta.content==='string','invalid model text');content+=delta.content;}
   if(choice.finish_reason!==undefined&&choice.finish_reason!==null)finish=choice.finish_reason;
  }
