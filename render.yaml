@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: prooflane
+    runtime: node
+    plan: free
+    buildCommand: npx --yes pnpm@11.25.0 install --frozen-lockfile
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24.16.0
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_POOL_MAX
+        value: "2"
+      - key: NEAR_NETWORK
+        value: testnet
+      - key: NEAR_CONTRACT_ID
+        value: agentwork-tee-v2-arlosxq.testnet
+      - key: NEAR_VERIFIER_ACCOUNT_ID
+        value: arlosxq.testnet
+      - key: NEAR_VERIFICATION_MODE
+        value: outlayer-tdx-direct-v3
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: DATABASE_CA_PATH
+        value: /etc/secrets/prod-ca-2021.crt

@@ -5,7 +5,7 @@ const root=resolve(import.meta.dirname,'..');
 const target=resolve(root,'artifacts/local/release/source-'+new Date().toISOString().replace(/[:.]/g,'-'));
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const folders=['apps','contracts','docs','packages','scripts','supabase','tests','.cargo'];
-const top=['LICENSE','README.md','package.json','pnpm-lock.yaml','pnpm-workspace.yaml','tsconfig.json','.gitignore','.gitattributes','.env.example'];
+const top=['LICENSE','README.md','package.json','pnpm-lock.yaml','pnpm-workspace.yaml','tsconfig.json','.gitignore','.gitattributes','.env.example','render.yaml'];
 const excluded=new Set(['node_modules','target','.git','artifacts','coverage','dist','.next']);
 const files=[];const findings=[];const knownSecrets=[];
 try{for(const line of (await readFile(resolve(root,'.env.local'),'utf8')).split(/\r?\n/)){

@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-11-13T21:51:59.015Z",
+  "createdAt": "2026-11-13T22:18:48.285Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
@@ -11,7 +11,7 @@
     },
     {
       "path": "apps/test-console/public/demo.html",
-      "sha256": "fc7acb2a66573bdc10e4c438ea145ad9c4e571caf3ab3b58cd7e84031c0bc209"
+      "sha256": "5e3518a8fd37388ab01d7fa2b3feaa51fa07c68711e1a7ed37c10fa0daef4744"
     },
     {
       "path": "apps/test-console/public/favicon.svg",
@@ -47,15 +47,19 @@
     },
     {
       "path": "apps/test-console/public/wallet-connector.js",
-      "sha256": "b0de6f8cf99ac8c3236d0e9fdce689fec0d3c16f02dd6bb48d2abefd975cbe3a"
+      "sha256": "ce9568cb0a45e2eb7a41e242db72e37aacd6eb1a27ba4dab3d80c43c50ea8a36"
+    },
+    {
+      "path": "apps/test-console/src/hosting.ts",
+      "sha256": "5f92b62d80e8019be52fa8ed322f1c23ab190cbbd178f8e7a9936635b2fd2789"
     },
     {
       "path": "apps/test-console/src/postgres-server.ts",
-      "sha256": "1656820a9f0d8f194c8cd4372a518aec6e0b028781135c8ba8a70e4b14ed8db6"
+      "sha256": "b953173cb85bc173c99acfc441f7c00909cc5b2500352143399f54eeaf3bfe73"
     },
     {
       "path": "apps/test-console/src/server.ts",
-      "sha256": "d03147f6f30502eb788681b3c6f55500726d7895faf7f8e3e124ab1554a723d9"
+      "sha256": "ad7256c4aa899d25ae2810edb8be672536fc05c16cb2be841801b1b0954e2351"
     },
     {
       "path": "apps/test-console/src/wallet-auth.ts",
@@ -143,7 +147,7 @@
     },
     {
       "path": "docs/CURRENT-STATUS.md",
-      "sha256": "94fc904318af5eb57591d34c54a4a209f933bbf96e30095d737395a728b9ca6a"
+      "sha256": "7a4989617a95bc76bbe7edf478dc5a843f62e8c955ae73eb38b930b1c3519247"
     },
     {
       "path": "docs/decisions.md",
@@ -240,6 +244,10 @@
     {
       "path": "docs/release-validation-2026-11-13.md",
       "sha256": "abbafd31c1cf2b28658a5655314bdd3282e290077979a6cdc232bcf781020272"
+    },
+    {
+      "path": "docs/render-deployment.md",
+      "sha256": "34e517b8f149bac0c3182571dc226f5de5347db05d98dea24d8f9b1822c1109f"
     },
     {
       "path": "docs/sandbox-handoff.md",
@@ -579,7 +587,7 @@
     },
     {
       "path": "scripts/prepare-release.mjs",
-      "sha256": "ca2a92a571801ca243907fd1fe74990591a59e76637d7da5dba24783f5689918"
+      "sha256": "2110ff4fed96947b003c1726d02133ab5d76d05fb25ac3776048eec08057af93"
     },
     {
       "path": "scripts/prepare-source.ps1",
@@ -810,6 +818,10 @@
       "sha256": "d46178fb1c765674d7a54d21e6c0ac72d92dae55521a135a15a226db2a430b8f"
     },
     {
+      "path": "tests/hosting.test.mjs",
+      "sha256": "d22fedea7c6e7fd9fdd68f1206d64091f3b38cdb9c41a41953307d0f2d0feeda"
+    },
+    {
       "path": "tests/intear-connector.test.mjs",
       "sha256": "6e8c0a879fe617360988b3686a68ba31a18f623d6cca41a07a37a13d2eae431e"
     },
@@ -943,11 +955,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "1d00c23910cf606d0342de8f7dedf7d06436a642febd87ab2044c2c8c45552ce"
+      "sha256": "1cfc917277fa21171627c85355d56c8d2c191595788b76c503bf356a5d07a2b8"
     },
     {
       "path": "package.json",
-      "sha256": "492409b68d6b5f9d230f71889901cc545716e2d9c769a0a753d2897b67a1b7b0"
+      "sha256": "ef40ede68071ebcfcc0665441c34efd6502a54b89880867f7603d3ba1e80ee2b"
     },
     {
       "path": "pnpm-lock.yaml",
@@ -971,7 +983,11 @@
     },
     {
       "path": ".env.example",
-      "sha256": "2c43e93605b5e56ec33f834d715cb3e843c671e710e30bd2e4f25986347fdcfb"
+      "sha256": "ed7b01b0a6f5b44a840a76e0ecd7d6abd1e2a71975750774a6445e809593f5d9"
+    },
+    {
+      "path": "render.yaml",
+      "sha256": "695b887eca0dfc8bd4676ee4203488feb56b2f19685eaac7b80220964a7676ba"
     }
   ],
   "secretScan": "configured secrets and private-key patterns absent; manual review still required"

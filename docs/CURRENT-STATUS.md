@@ -1,5 +1,9 @@
 # Current release status — 14 November 2026
 
+## Render hosting preparation
+
+The Free Render blueprint and HTTPS wallet transport are prepared; no public deployment is claimed yet. The application suite passes 128 tests, including trusted-origin, secure-cookie and hosted wallet-session checks. TypeScript, syntax and the key-free fixture smoke pass. See [deployment instructions](render-deployment.md) for the remaining private environment configuration and real hosted-wallet acceptance check. Model execution and owner signing remain explicit operator steps.
+
 ## Latest adversarial challenge
 
 The [14 November security challenge](security-challenge-2026-11-14.md) fixed two bounded issues: contradictory model-response metadata and SQLite lease expiry at commit. Application checks (126), local PostgreSQL (22), native Rust (14), v3 Sandbox (17), WASI parity vectors (25) and fixture smoke passed. Production contract/judge code and live data were unchanged. These are local engineering checks, not an independent security certification.

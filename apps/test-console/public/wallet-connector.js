@@ -10,7 +10,9 @@ export function base58(bytes){
  return result;
 }
 export async function intearSignInRequest(challenge,origin,now=Date.now(),cryptoApi=globalThis.crypto){
- if(challenge.recipient!==origin||!/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin)||!/^[a-f0-9]{64}$/.test(challenge.state))throw Error('Invalid wallet challenge origin');
+ let url;try{url=new URL(origin);}catch{throw Error('Invalid wallet challenge origin');}
+ const allowed=url.origin===origin&&(url.protocol==='https:'||/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin));
+ if(challenge.recipient!==origin||!allowed||!/^[a-f0-9]{64}$/.test(challenge.state))throw Error('Invalid wallet challenge origin');
  const nonce=Uint8Array.from(atob(challenge.nonce),c=>c.charCodeAt(0));
  if(nonce.length!==32||typeof challenge.message!=='string')throw Error('Invalid wallet challenge');
  const pair=await cryptoApi.subtle.generateKey({name:'Ed25519'},false,['sign','verify']);

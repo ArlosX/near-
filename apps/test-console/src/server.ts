@@ -12,9 +12,12 @@ import {PostgresWorkflow} from '../../../packages/orchestration/src/postgres-wor
 import type {WalletAuth} from './wallet-auth.ts';
 import {parseJsonStrict} from '../../../packages/shared/src/json.ts';
 import {buildEvidencePackage} from '../../../packages/verification/src/evidence-package.ts';
+import {validatePublicOrigin} from './hosting.ts';
 const publicDirectory=fileURLToPath(new URL('../public/',import.meta.url));
-export function createConsoleServer(store:LocalStore|PostgresExecutionStore,backend?:PostgresWorkflow,auth?:WalletAuth){
+export function createConsoleServer(store:LocalStore|PostgresExecutionStore,backend?:PostgresWorkflow,auth?:WalletAuth,options:{publicOrigin?:string}={}){
  invariant(!auth||backend&&store instanceof PostgresExecutionStore,'Wallet authentication requires an owner-scoped PostgreSQL backend');
+ const publicOrigin=options.publicOrigin?validatePublicOrigin(options.publicOrigin):undefined;
+ invariant(!publicOrigin||!!auth,'Public hosting requires wallet authentication and PostgreSQL');
  let active=0,tokens=180,lastRefill=Date.now(),authTokens=12,authRefill=Date.now();
  const server=createServer({maxHeaderSize:8192},(req,res)=>{
   res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; form-action 'self'");
@@ -23,6 +26,7 @@ export function createConsoleServer(store:LocalStore|PostgresExecutionStore,back
   res.setHeader('Cross-Origin-Resource-Policy','same-origin');
   res.setHeader('X-Permitted-Cross-Domain-Policies','none');
   res.setHeader('Cache-Control','no-store');
+  if(publicOrigin)res.setHeader('Strict-Transport-Security','max-age=31536000');
   const now=Date.now();tokens=Math.min(180,tokens+(now-lastRefill)*3/1000);lastRefill=now;
   if(active>=16||tokens<1){res.writeHead(429,{'Content-Type':'application/json','Retry-After':'1','Cache-Control':'no-store'});res.end(JSON.stringify({error:'Too many requests; retry shortly'}));return;}
   tokens--;active++;
@@ -32,8 +36,10 @@ export function createConsoleServer(store:LocalStore|PostgresExecutionStore,back
  }).finally(()=>{active--;});});
  async function handle(req:IncomingMessage,res:ServerResponse){
   const address=server.address();invariant(address&&typeof address==='object','server not listening');
-  const host=req.headers.host;invariant(host==='127.0.0.1:'+address.port||host==='localhost:'+address.port,'invalid local host');
-  const origin='http://'+host;invariant(!req.headers.origin||req.headers.origin===origin,'cross-origin request blocked');
+  const host=req.headers.host;
+  invariant(publicOrigin?host===new URL(publicOrigin).host:host==='127.0.0.1:'+address.port||host==='localhost:'+address.port,'invalid local or public host');
+  const origin=publicOrigin??'http://'+host;invariant(!req.headers.origin||req.headers.origin===origin,'cross-origin request blocked');
+  if(publicOrigin&&req.method==='POST')invariant(req.headers.origin===origin,'Same-origin public request required');
   invariant(req.url?.startsWith('/')&&!req.url.startsWith('//'),'relative request target required');
   const url=new URL(req.url??'/',origin);
   if(url.pathname.startsWith('/api/'))invariant(!req.headers['sec-fetch-site']||['same-origin','none'].includes(String(req.headers['sec-fetch-site'])),'cross-site API request blocked');
@@ -58,7 +64,7 @@ export function createConsoleServer(store:LocalStore|PostgresExecutionStore,back
   const session=cookies.get('near_session'),challenge=cookies.get('near_challenge');
   const authRoute=auth&&req.method==='POST'&&url.pathname.startsWith('/api/auth/');
   const actor=auth&&!authRoute?await auth.authorize(session,origin,req.method==='POST'):null;
-  const cookie=(name:string,value:string,seconds:number)=>name+'='+value+'; Path=/; HttpOnly; SameSite=Strict; Max-Age='+seconds;
+  const cookie=(name:string,value:string,seconds:number)=>name+'='+value+'; Path=/; HttpOnly; SameSite=Strict; Max-Age='+seconds+(publicOrigin?'; Secure':'');
   if(auth&&url.pathname==='/api/auth/session'&&req.method==='GET'){json({accountId:actor});return;}
   if(auth&&!authRoute&&!actor){res.writeHead(401,{'Content-Type':'application/json'});res.end(JSON.stringify({error:'Wallet sign-in required'}));return;}
   const scopedStore=actor&&backend?backend.store.forActor(actor):store;

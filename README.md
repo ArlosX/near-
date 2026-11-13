@@ -26,6 +26,8 @@ Fixture outcomes are local database results, not live AI execution, hardware pro
 
 ## Architecture
 
+For the authenticated public workspace, see [Free Render deployment](docs/render-deployment.md). This hosts the existing Node service with Supabase; the key-free fixture instructions above remain local.
+
 ```mermaid
 flowchart LR
   A[Fixed agreement and escrow] --> B[Extract supplier terms]
