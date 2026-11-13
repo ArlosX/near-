@@ -66,7 +66,7 @@ export class WalletAuth {
   for(const [id,entry] of this.challenges)if(entry.expires<=this.now())this.challenges.delete(id);
   invariant(this.challenges.size<128,'Too many pending wallet challenges');
   const state=randomBytes(32).toString('hex');
-  const challenge={message:'Sign in to NEAR Agent Work on Testnet. Challenge: '+state,recipient:origin,nonce:randomBytes(32),callbackUrl:origin+'/',expires:this.now()+300000};
+  const challenge={message:'Sign in to Prooflane on Testnet. Challenge: '+state,recipient:origin,nonce:randomBytes(32),callbackUrl:origin+'/',expires:this.now()+300000};
   this.challenges.set(state,challenge);
   return {state,message:challenge.message,recipient:origin,nonce:challenge.nonce.toString('base64'),callbackUrl:challenge.callbackUrl};
  }

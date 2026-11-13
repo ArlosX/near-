@@ -2333,3 +2333,42 @@ button, button.secondary, #wallet-action button, .task-card button.secondary,
 }
 
 .receipt-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin:8px 0 18px}.receipt-links a{display:flex;align-items:center;min-height:44px;color:var(--primary,#8BD8F8);text-underline-offset:4px}
+
+/* Prooflane identity · reversible appearance only */
+.brand-symbol{display:block;flex:0 0 42px;filter:drop-shadow(0 3px 10px rgba(139,216,248,.12))}
+.brand{gap:9px}.brand>span{font-size:23px;letter-spacing:-1px}.brand small{font-size:6.8px;letter-spacing:1.1px}
+.sidebar{background:linear-gradient(170deg,rgba(8,16,22,.25),rgba(13,34,47,.17))!important;border:0!important;backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px) saturate(120%);box-shadow:12px 0 40px rgba(0,0,0,.16)}
+.theme-toggle{position:relative;display:inline-flex;align-items:center;justify-content:space-between;gap:20px;width:88px;min-width:88px;height:44px;padding:0 12px!important;border:0!important;border-radius:30px!important;background:rgba(5,15,23,.55)!important;box-shadow:inset 0 2px 8px rgba(0,0,0,.2)!important;isolation:isolate;overflow:hidden;flex-shrink:0}
+.theme-toggle svg{position:relative;width:19px;height:19px;z-index:1;pointer-events:none;transition:color .3s,transform .45s;color:#71818C}
+.theme-toggle .theme-moon{color:#D1F4FF}.theme-orb{position:absolute;left:5px;top:5px;width:34px;height:34px;border-radius:50%;background:linear-gradient(145deg,rgba(139,216,248,.25),rgba(52,127,165,.12));box-shadow:0 3px 10px rgba(0,0,0,.2);transition:transform .45s cubic-bezier(.22,1,.36,1),background .3s}
+.theme-toggle:hover{transform:translateY(-1px)!important}.theme-toggle:hover svg{transform:rotate(-12deg)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent)!important;outline-offset:4px}
+[data-theme=light]{color-scheme:light;--bg:#F1F8FC;--bg-secondary:#E8F3F9;--panel:#FFFFFF;--surface-elevated:#DEEDF5;--field:#E8F3F9;--accent:#16678C;--accent-bright:#125B7D;--accent-soft:#205B76;--accent-deep:#347FA5;--ink:#102D3B;--muted:#46616F;--text-muted:#607783;--bad:#AC3041;--line:rgba(30,85,112,.09);--surface-glass:rgba(255,255,255,.58);--surface-deep:rgba(230,242,249,.82);--sidebar-glass:rgba(240,249,254,.45);--accent-wash:rgba(52,127,165,.06);--accent-hover:rgba(52,127,165,.1);--accent-selected:rgba(52,127,165,.13);--ambient:rgba(139,216,248,.16);--shadow:rgba(30,80,105,.08);--scrim:rgba(49,81,99,.28);--glass-surface:linear-gradient(135deg,rgba(255,255,255,.57),rgba(240,249,254,.4));--glass-control:linear-gradient(125deg,rgba(231,243,250,.72),rgba(249,253,255,.55));--glass-action:linear-gradient(125deg,rgba(139,216,248,.56),rgba(185,237,255,.44));--inset-surface:rgba(221,235,244,.53);--inset-depth:inset 0 3px 12px rgba(47,88,111,.06),0 7px 18px rgba(38,82,106,.05);--scroll-thumb:#84ADBF;--cube-light:#8BD8F8;--cube-dark:#347FA5;--cube-edge:#347FA5}
+[data-theme=light] body{background:radial-gradient(ellipse at 70% 20%,rgba(139,216,248,.2),transparent 60%),#F1F8FC;color:var(--ink)}
+[data-theme=light] .live-ribbons{opacity:.27}
+[data-theme=light] .sidebar{background:linear-gradient(170deg,rgba(255,255,255,.32),rgba(216,237,249,.24))!important;box-shadow:12px 0 40px rgba(29,80,106,.08)}
+[data-theme=light] .theme-toggle{background:rgba(207,228,240,.64)!important}
+[data-theme=light] .theme-orb{transform:translateX(44px);background:linear-gradient(145deg,#FFFFFF,#D1F4FF);box-shadow:0 3px 10px rgba(30,80,105,.12)}
+[data-theme=light] .theme-toggle .theme-moon{color:#607783}[data-theme=light] .theme-toggle .theme-sun{color:#16678C}
+[data-theme=light] button,[data-theme=light] button.secondary,[data-theme=light] .primary-nav a,[data-theme=light] .evidence-link{color:var(--ink)}
+[data-theme=light] button:hover:not(:disabled),[data-theme=light] button.secondary:hover:not(:disabled),[data-theme=light] .primary-nav a:hover,[data-theme=light] .evidence-link:hover{background:linear-gradient(130deg,rgba(187,216,232,.75),rgba(218,236,246,.6));color:#103E56;box-shadow:inset 0 3px 10px rgba(47,88,111,.07),0 7px 18px rgba(38,82,106,.07)}
+[data-theme=light] .primary-nav a.active{background:rgba(139,216,248,.22)!important;color:#145C7E}
+[data-theme=light] input,[data-theme=light] select,[data-theme=light] textarea{color:var(--ink);background:var(--glass-control)!important}
+[data-theme=light] option{background:#EAF5FB;color:#102D3B}
+[data-theme=light] .glass-select-menu,[data-theme=light] dialog{background:rgba(241,249,253,.94)!important;color:var(--ink);box-shadow:0 24px 70px rgba(29,80,106,.18)}
+[data-theme=light] .glass-select-option:hover,[data-theme=light] .glass-select-option[aria-selected=true]{background:rgba(139,216,248,.24)!important;color:#103E56}
+[data-theme=light] .status-strip,[data-theme=light] .badge,[data-theme=light] .order-list button,[data-theme=light] .recent-list button{background:rgba(224,239,248,.45);color:var(--muted)}
+[data-theme=light] .step-number{color:rgba(52,127,165,.12)}
+[data-theme=light] .pass{color:#16678C}[data-theme=light] .fail{color:#AC3041}
+[data-theme=light] .background-toggle{background:rgba(225,240,249,.86);color:#24566D}
+[data-theme=light] ::selection{background:#8BD8F8;color:#102D3B}
+@media(prefers-reduced-motion:reduce){.theme-orb,.theme-toggle svg{transition:none!important}}
+@media(prefers-reduced-transparency:reduce){.sidebar{background:#0D1319!important}[data-theme=light] .sidebar{background:#E8F3F9!important}}
+@media(max-width:760px){.brand>span{font-size:20px}.top-actions{flex-wrap:wrap}.theme-toggle{width:88px}.sidebar{box-shadow:0 8px 28px rgba(0,0,0,.1)}}
+/* Soft daylight elevation keeps the same glass hierarchy without dark halos */
+[data-theme=light] .panel,[data-theme=light] .metrics>div,[data-theme=light] .network-card,[data-theme=light] .welcome-steps>div{box-shadow:0 10px 30px rgba(39,88,115,.075),inset 0 1px 0 rgba(255,255,255,.2)}
+[data-theme=light] button,[data-theme=light] .primary-nav a,[data-theme=light] .evidence-link{box-shadow:0 4px 12px rgba(39,88,115,.05)}
+[data-theme=light] .brand-symbol{filter:brightness(.65) saturate(1.35)}
+[data-theme=light] .receipt-links a{color:var(--accent)}
+[data-theme=light] .glass-select-menu{scrollbar-color:var(--scroll-thumb) transparent}
+[data-theme=light] .glass-select-option:hover:not(:disabled),[data-theme=light] .glass-select-option:focus-visible{background:rgba(139,216,248,.26)!important;color:var(--ink)}

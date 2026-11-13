@@ -1,13 +1,21 @@
 {
-  "createdAt": "2026-11-13T14:58:43.013Z",
+  "createdAt": "2026-11-13T16:16:36.086Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
-      "sha256": "febdcf496e56a2d504da1fe13dfd4c920fd5179bc5a323d9603c97b3bda1a99f"
+      "sha256": "1482be19e8e7621a40dda2f74e970d207c9c167d438555d24c617799cccee35e"
+    },
+    {
+      "path": "apps/test-console/public/appearance.js",
+      "sha256": "5d201d08aabe9daa54dd9285f206ffa594b77409f24023dd62de5a4f29d027cc"
     },
     {
       "path": "apps/test-console/public/demo.html",
-      "sha256": "78ad4de0d98116bc00e95ea006b1a35cce9d07d8a9885f435362bbef869404f1"
+      "sha256": "95870148a9da5ef2f91292da111f20239a0f35a55ee19680459ee9dfdf842c99"
+    },
+    {
+      "path": "apps/test-console/public/favicon.svg",
+      "sha256": "89668e8778a2d5fb9f730021c1e1b804b241aabe4aa2c7486a2b577de9102b74"
     },
     {
       "path": "apps/test-console/public/fonts/OFL-Space-Grotesk.txt",
@@ -19,15 +27,23 @@
     },
     {
       "path": "apps/test-console/public/index.html",
-      "sha256": "9077465fdb8d884796c672a49af715f29d7801b70fdb3f00227765e08dc9cb7b"
+      "sha256": "70b0f65208ba2b5fa17f813691d8175c308b905976edcebf080e0bf184c2c571"
+    },
+    {
+      "path": "apps/test-console/public/prooflane-mark.svg",
+      "sha256": "7264fadec367c1ad7a22015d53e143be751ae4cc63cffbef7d78d44327684eac"
     },
     {
       "path": "apps/test-console/public/release-evidence.json",
       "sha256": "2c670f5bec9b97ac8d807c1d8ab3ec400f31ba9daf53034963d0ef619c39aeb3"
     },
     {
+      "path": "apps/test-console/public/site.webmanifest",
+      "sha256": "d981f4594e1c554bf8c5c37ab3a3abb8cd1bc8a8339bf0a94d6393e58e1630cb"
+    },
+    {
       "path": "apps/test-console/public/style.css",
-      "sha256": "01f24c6632367a0e2486dabb5acd094aa4de4d8cb98de4a32dbf45ea7377d93a"
+      "sha256": "0e12cf6ef6efba54e2d41d54d5f00c80232ecc0b2a16ebfd7c7d851e0aa357c0"
     },
     {
       "path": "apps/test-console/public/wallet-connector.js",
@@ -39,11 +55,11 @@
     },
     {
       "path": "apps/test-console/src/server.ts",
-      "sha256": "1d93ccb2871b986d2fc400a425225c89e5a14e6c2fa6b0c8e05fdeb8f4c47eed"
+      "sha256": "d03147f6f30502eb788681b3c6f55500726d7895faf7f8e3e124ab1554a723d9"
     },
     {
       "path": "apps/test-console/src/wallet-auth.ts",
-      "sha256": "cfc6480e3eb408cc2af648a3735a3e8f5051c02e1c95d1cdb2462ce6ff0c46ee"
+      "sha256": "d53c50be68a2273f58d6d409c9088289dc5534634d8abafdc18fded0ff4e0e91"
     },
     {
       "path": "contracts/tee-proof-bench/Cargo.lock",
@@ -115,7 +131,7 @@
     },
     {
       "path": "docs/competitive-assessment-handoff-2026-11-09.md",
-      "sha256": "ac2771b5f84ead085decae161d322a24bb03db73180e1983db396174e2875b82"
+      "sha256": "f2d0618150e80dfdec83a7f923a4e7e627bd767770ead8f9cf6819ec0062306d"
     },
     {
       "path": "docs/competitive-improvements-2026-11-09.md",
@@ -131,7 +147,7 @@
     },
     {
       "path": "docs/demo-script-release.md",
-      "sha256": "02919d3f85883793c63febdd961c7b8e1705156d4854384cd0e81e0606bdca52"
+      "sha256": "5b90ca61cbd76787240051074844e925c566600f2c7851d2306651ff425b7236"
     },
     {
       "path": "docs/environment-audit.md",
@@ -155,7 +171,7 @@
     },
     {
       "path": "docs/hackathon-agent-handoff-2026-11-11.md",
-      "sha256": "f7f59d7b060e19f5f130f50218a26fc6a4dd8077b31bf4edea3c9ffcaad7ba1f"
+      "sha256": "cde5e9c7a80ee141e9d088af697a3e0aaef63bc0ab998a2b5736f9a15f81074d"
     },
     {
       "path": "docs/ice-blue-graphite-theme.md",
@@ -175,7 +191,7 @@
     },
     {
       "path": "docs/NEAR-Agent-Work-Complete-Project-Report-2026-11-12.md",
-      "sha256": "17dc98b0d741dbbf5cc6eda28c7144d87024b0b2db23f62718ee21c7191935b2"
+      "sha256": "f9efa882d78f9de7f2e867884bfca379aa050dfa5985eb3caa641c976ca24c9d"
     },
     {
       "path": "docs/nvidia-connection-diagnosis-2026-11-11.md",
@@ -607,7 +623,7 @@
     },
     {
       "path": "scripts/smoke-fixture.mjs",
-      "sha256": "31f05c8574e185308decce0b2925f743a35955c904999b85d73ecd679f468662"
+      "sha256": "ed0da9aba20079c2adae7d2716378267e56d127ed3b3b4716b77d23acae07c34"
     },
     {
       "path": "scripts/smoke-postgres.ts",
@@ -907,11 +923,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "9c611ca8d7a694656b7e02cbe5fa54118886659f1d3c9833403b61ca13817094"
+      "sha256": "adf46a6389ed416b89d2dac1001a3c57cebbc0c00e8cd81ec76fead2127915b9"
     },
     {
       "path": "package.json",
-      "sha256": "2057bbe00351f4fb328cd4b7e4ed38c8c2cb1e077d83d9f8d8e696c7d85f3c5f"
+      "sha256": "492409b68d6b5f9d230f71889901cc545716e2d9c769a0a753d2897b67a1b7b0"
     },
     {
       "path": "pnpm-lock.yaml",

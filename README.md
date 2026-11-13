@@ -1,4 +1,4 @@
-# NEAR Agent Work
+# Prooflane
 
 **Two dependent agent tasks. One conditional settlement.**
 

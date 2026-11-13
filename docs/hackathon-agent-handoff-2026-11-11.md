@@ -1,8 +1,8 @@
-# Verifiable Agent Work & Settlement Protocol
+# Prooflane
 
 ## Evaluation handoff — 11 November 2026
 
-Project name in the repository and UI is **NEAR Agent Work / Agent Work**. This report describes the current implementation and the evidence available for review. It supersedes older planning documents for the status summarized here. Competition rankings, competitor counts and current event rules require separate research.
+Project name in the repository and UI is **Prooflane / Prooflane**. This report describes the current implementation and the evidence available for review. It supersedes older planning documents for the status summarized here. Competition rankings, competitor counts and current event rules require separate research.
 
 ## 1. Product and user problem
 

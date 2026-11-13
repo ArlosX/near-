@@ -16,7 +16,7 @@ private environment files out of the recording.
 
 ## Draft X post — owner publishes
 
-Built at NEAR HACKATHON: Agent Work ties payment to completed dependent work.
+Built at NEAR HACKATHON: Prooflane ties payment to completed dependent work.
 
 Extract → accept → compare the exact accepted output → allocate and claim.
 

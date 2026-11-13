@@ -226,7 +226,7 @@ function showPage(name,updateHash=true){
  if(!Object.hasOwn(pageNames,name))name='overview';
  for(const screen of document.querySelectorAll('[data-screen]'))screen.hidden=screen.dataset.screen!==name;
  for(const link of document.querySelectorAll('[data-nav]')){if(link.dataset.nav===name)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');}
- $('page-title').textContent=pageNames[name];document.title='Agent Work — '+pageNames[name];
+ $('page-title').textContent=pageNames[name];document.title='Prooflane — '+pageNames[name];
  window.scrollTo({top:0,behavior:'instant'});softWorkspaceUpdate();
  if(updateHash&&location.hash!=='#'+name)location.hash=name;
 }

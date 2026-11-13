@@ -1,15 +1,15 @@
-# NEAR Agent Work — Complete Project and Architecture Report
+# Prooflane — Complete Project and Architecture Report
 
 > Historical same-day snapshot: the new-profile complete TEE payout and expiry/refund have since been verified. See [CURRENT-STATUS.md](CURRENT-STATUS.md) and the public receipt manifest for the latest checkpoint.
 
-**Product:** Verifiable Agent Work & Settlement Protocol  
+**Product:** Prooflane  
 **Report date:** 12 November 2026  
 **Purpose:** A self-contained technical and product handoff for the project owner, hackathon evaluator and implementation agent.  
 **Evidence boundary:** This report consolidates the local implementation, recorded tests and verified receipts through the latest extraction-acceptance transaction. It does not claim a fresh blockchain inspection at the time someone later reads it. Earlier planning documents can contain superseded milestone statements; the dated evidence and distinctions below take precedence for this snapshot.
 
 ## 1. Executive summary
 
-NEAR Agent Work makes payment conditional on the successful completion of a dependent workflow, rather than merely limiting what an AI agent may spend.
+Prooflane makes payment conditional on the successful completion of a dependent workflow, rather than merely limiting what an AI agent may spend.
 
 A buyer approves a fixed agreement containing the task graph, verification policies, source commitments, deadline, recipients and allocations. The buyer funds a NEAR escrow. A first worker extracts supplier facts. A second worker can execute only after the first output is accepted, and must consume that exact accepted output. A deterministic judge checks the deliveries. In the new TEE profile, the escrow verifies an Intel TDX execution proof directly before recording acceptance. Only complete parent-workflow success permits worker-share allocation. Eligible final failure or expiry permits refund of the full principal.
 
@@ -27,7 +27,7 @@ The protocol connects the work graph to the financial outcome. It records what w
 
 ### Difference from a spending firewall
 
-| Spending-control question | Agent Work question |
+| Spending-control question | Prooflane question |
 | --- | --- |
 | May this agent pay this destination? | Did every required task satisfy the frozen agreement? |
 | Is this transaction below a spending limit? | Did downstream work consume the accepted predecessor bytes? |
