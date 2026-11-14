@@ -1871,6 +1871,37 @@ button:active:not(:disabled),.order-row:active:not(:disabled) {
 #main[aria-busy=true] .workspace-context {
   opacity:.65
 }
+#loading-state:not([hidden]) {
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10000;
+  max-width:calc(100vw - 32px);
+  padding:13px 20px;
+  border-radius:16px;
+  background:rgba(9,20,29,.94);
+  color:#D1F4FF;
+  box-shadow:0 12px 40px rgba(0,0,0,.28);
+  pointer-events:none;
+  font-size:13px;
+}
+button.is-loading:disabled {opacity:1;cursor:progress}
+button.is-loading:after {
+  content:'';
+  display:inline-block;
+  width:12px;
+  height:12px;
+  margin-left:10px;
+  border:2px solid currentColor;
+  border-right-color:transparent;
+  border-radius:50%;
+  vertical-align:middle;
+  animation:loading-spin .8s linear infinite;
+}
+@media(prefers-reduced-motion:reduce) {
+  button.is-loading:after,#loading-state:before {animation:none!important}
+}
 #loading-state:before {
   content:'';
   display:inline-block;

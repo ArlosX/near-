@@ -1,9 +1,9 @@
 {
-  "createdAt": "2026-11-14T08:10:24.321Z",
+  "createdAt": "2026-11-14T08:16:35.407Z",
   "files": [
     {
       "path": "apps/test-console/public/app.js",
-      "sha256": "0edf417f2b7a105035e9a9dc581c876ef06b880b1abb3335f9b88c944390c315"
+      "sha256": "2c3afc94c458fe882c86805090af09445c6764f11facdc527e052ef99fa3099b"
     },
     {
       "path": "apps/test-console/public/appearance.js",
@@ -43,7 +43,7 @@
     },
     {
       "path": "apps/test-console/public/style.css",
-      "sha256": "5b8a8cb70dbdc25ab383a8eb4c0f7b27af8cc80fcbcde7ccc06e1c9cd3040542"
+      "sha256": "b641d03b773f8c989e94c87929840f620446ff41c0f7399809908b377b4caa48"
     },
     {
       "path": "apps/test-console/public/wallet-connector.js",

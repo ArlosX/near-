@@ -8,7 +8,19 @@ function el(tag,content,cls){const node=document.createElement(tag);if(content!=
 function feedback(message,error=false){$('feedback').textContent=message;$('feedback').className=error?'error':'';}
 function canonical(value){if(Array.isArray(value))return '['+value.map(canonical).join(',')+']';if(value!==null&&typeof value==='object')return '{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}';return JSON.stringify(value);}
 async function api(url,body){const response=await fetch(url,{...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-Local-Console':'1'},body:JSON.stringify(body)}),signal:AbortSignal.timeout(45000)});const data=await response.json();if(response.status===401)lockWorkspace();if(!response.ok)throw new Error(response.status===401?'Your session has expired. Reconnect your wallet.':data.error||'Service error');return data;}
-function setBusy(value){busy=value;$('loading-state').hidden=!value;$('main').setAttribute('aria-busy',String(value));document.querySelectorAll('button,input,select,textarea').forEach(n=>n.disabled=value);if(!value){controls();if($('workspace-order'))$('workspace-order').disabled=!ready||!orders.length;}}
+let loadingButton=null,loadingTimer=null;
+function setBusy(value){
+ busy=value;const status=$('loading-state');status.hidden=!value;status.setAttribute('role','status');status.setAttribute('aria-live','polite');$('main').setAttribute('aria-busy',String(value));
+ if(value){
+  const focused=document.activeElement;loadingButton=focused?.matches('button')?focused:null;
+  loadingButton?.classList.add('is-loading');loadingButton?.setAttribute('aria-busy','true');
+  status.textContent=loadingButton?'Working · '+(loadingButton.getAttribute('aria-label')||loadingButton.textContent).trim():'Loading workspace…';
+  loadingTimer=setTimeout(()=>{status.textContent='Still working · Please keep this page open';},8000);
+ }else{
+  clearTimeout(loadingTimer);loadingTimer=null;loadingButton?.classList.remove('is-loading');loadingButton?.removeAttribute('aria-busy');loadingButton=null;
+ }
+ document.querySelectorAll('button,input,select,textarea').forEach(n=>n.disabled=value);if(!value){controls();if($('workspace-order'))$('workspace-order').disabled=!ready||!orders.length;}
+}
 async function action(work){if(busy)return;setBusy(true);try{await work();}catch(error){const message=error.message==='Invalid wallet signature'?'Wallet signature could not be verified.':error instanceof TypeError?'Connection unavailable. Check that the local server is running, then refresh.':error.name==='TimeoutError'?'The service timed out. Refresh the status; the operation was not automatically retried.':error.message;feedback(message,true);if($('create-dialog').open)$('create-error').textContent=message;}finally{setBusy(false);}}
 let draftAccount='local-fixture';
 function draftKey(part){return JSON.stringify(['near-work-draft',draftAccount,current,part]);}
